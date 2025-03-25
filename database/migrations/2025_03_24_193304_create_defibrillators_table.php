@@ -13,8 +13,8 @@ return new class extends Migration {
         Schema::create('defibrillators', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->bigInteger('osm_id')->unique()->nullable();
-            $table->decimal('latitude', 10, 8);
-            $table->decimal('longitude', 11, 8);
+            $table->decimal('latitude', 12, 10);
+            $table->decimal('longitude', 12, 10);
             $table->json('raw_osm')->nullable();;
 
             $table->foreignUuid('operator_id')->nullable()->constrained('operators');

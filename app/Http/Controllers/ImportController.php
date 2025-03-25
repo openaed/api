@@ -16,8 +16,9 @@ class ImportController extends Controller {
      *
      * @param bool doFullImport Whether to do a full import - import ALL Defibrillators, regardless of update time
      *
+     * @return Import The import object
      */
-    public static function importDefibrillators(bool $doFullImport = false): void
+    public static function importDefibrillators(bool $doFullImport = false, string $overrideRegion = null): Import
     {
 
         $import = Import::create([
@@ -39,7 +40,11 @@ class ImportController extends Controller {
         }
 
         try {
-            $region = config('app.import.region');
+            if($overrideRegion) {
+                $region = $overrideRegion;
+            } else {
+                $region = config('app.import.region');
+            }
 
             if(strpos($region, ';') !== false) {
                 $region = explode(';', $region);
@@ -82,6 +87,8 @@ class ImportController extends Controller {
             $import->update(['status' => 'errored']);
             throw $e;
         }
+
+        return $import;
     }
 
     private static function handleDefibrillator(array $node, array $tags): void

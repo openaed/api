@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\PostTeapots;
 use \App\Http\Middleware\ValidateAccessToken;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -13,6 +14,7 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        $middleware->append(PostTeapots::class);
         $middleware->append(ValidateAccessToken::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {

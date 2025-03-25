@@ -1,11 +1,12 @@
 <?php
 
+use App\Http\Middleware\PostTeapots;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\ValidateAccessToken;
 use App\Http\Controllers\DefibrillatorController;
 
-Route::middleware(ValidateAccessToken::class)->group(function () {
+Route::middleware([ValidateAccessToken::class, PostTeapots::class])->group(function () {
     Route::get('/info', function (Request $request) {
         $info = [
             'version' => '2025.1.0',
