@@ -5,12 +5,16 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\ValidateAccessToken;
 use App\Http\Controllers\DefibrillatorController;
+use App\Models\Defibrillator;
+use App\Models\Import;
 
 Route::middleware([ValidateAccessToken::class, PostTeapots::class])->group(function () {
     Route::get('/info', function (Request $request) {
         $info = [
             'version' => '2025.1.0',
             'datetime' => now(),
+            'total_defibrillators' => Defibrillator::count(),
+            'last_import' => Import::orderBy('started_at', 'desc')->first()->started_at,
             'token' => [
                 'expires_at' => $request->attributes->get('access_token')->expires_at,
                 'assigned_to' => $request->attributes->get('access_token')->assigned_to,
