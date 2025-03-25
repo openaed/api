@@ -27,7 +27,7 @@ class DefibrillatorController extends Controller
         }
 
         $defibrillator->load('operator');
-        $defibrillator->makeHidden(['operator_id', 'created_at', 'updated_at']);
+        $defibrillator->makeHidden(['raw_osm', 'operator_id', 'created_at', 'updated_at']);
         $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
 
         return response()->json($defibrillator);
@@ -47,14 +47,13 @@ class DefibrillatorController extends Controller
             return response()->json(['message' => 'Invalid coordinates or radius'], 400);
         }
 
-        // The correct query using PostGIS' ST_DistanceSphere
         $defibrillators = Defibrillator::whereRaw(
             'ST_DistanceSphere(ST_MakePoint(longitude, latitude), ST_MakePoint(?, ?)) < ?',
             [$longitude, $latitude, $radius]
         )->get();
 
         $defibrillators->load('operator');
-        $defibrillators->makeHidden(['operator_id', 'created_at', 'updated_at']);
+        $defibrillators->makeHidden(['raw_osm', 'operator_id', 'created_at', 'updated_at']);
         $defibrillators->each(function ($defibrillator) use ($latitude, $longitude) {
             $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
             $defibrillator->distance = $defibrillator->distanceFromPoint($latitude, $longitude);
@@ -110,9 +109,11 @@ class DefibrillatorController extends Controller
         )->get();
 
         $defibrillators->load('operator');
-        $defibrillators->makeHidden(['operator_id', 'created_at', 'updated_at']);
+        $defibrillators->makeHidden(['raw_osm', 'operator_id', 'created_at', 'updated_at']);
         $defibrillators->each(function ($defibrillator) {
-            $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
+            if($defibrillator->operator) {
+                $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
+            }
         });
 
         return response()->json($defibrillators);
@@ -133,9 +134,11 @@ class DefibrillatorController extends Controller
         $defibrillators = Defibrillator::all();
 
         $defibrillators->load('operator');
-        $defibrillators->makeHidden(['operator_id', 'created_at', 'updated_at']);
+        $defibrillators->makeHidden(['raw_osm', 'operator_id', 'created_at', 'updated_at']);
         $defibrillators->each(function ($defibrillator) {
-            $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
+            if($defibrillator->operator) {
+                $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
+            }
         });
 
         return response()->json($defibrillators);

@@ -15,20 +15,21 @@ return new class extends Migration {
             $table->bigInteger('osm_id')->unique()->nullable();
             $table->decimal('latitude', 10, 8);
             $table->decimal('longitude', 11, 8);
-            $table->json('raw_osm');
+            $table->json('raw_osm')->nullable();;
 
             $table->foreignUuid('operator_id')->nullable()->constrained('operators');
 
-            $table->string('access');
-            $table->boolean(column: 'indoor');
-            $table->boolean(column: 'locked');
-            $table->string(column: 'location'); // Dutch version; other language versions are available in another table
-            $table->string(column: 'manufacturer');
-            $table->string(column: 'model');
-            $table->string(column: 'opening_hours');
+            $table->string('access')->nullable();
+            $table->boolean(column: 'indoor')->nullable();
+            $table->boolean(column: 'locked')->nullable();
+            $table->string(column: 'location')->nullable(); // Dutch version; other language versions are available in another table
+            $table->string(column: 'manufacturer')->nullable();
+            $table->string(column: 'model')->nullable();
+            $table->string(column: 'opening_hours')->nullable();
 
             $table->string('image')->nullable();
 
+            $table->timestamp('last_synced_at')->nullable();
             $table->timestamps();
         });
     }

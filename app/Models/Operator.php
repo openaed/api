@@ -11,6 +11,7 @@ class Operator extends Model
     protected $keyType = 'string';
 
     protected $fillable = [
+        'id',
         'name',
         'website',
         'email',

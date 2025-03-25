@@ -25,12 +25,14 @@ class Defibrillator extends Model
         'model',
         'opening_hours',
         'image',
+        'last_synced_at',
     ];
 
     protected $casts = [
         'raw_osm' => 'array',
         'indoor' => 'boolean',
         'locked' => 'boolean',
+        'last_synced_at' => 'datetime',
     ];
 
     public function operator()

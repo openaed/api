@@ -123,4 +123,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'import' => [
+        'region' => env('APP_IMPORT_REGION', '3600047796'), // Fallback to the Netherlands
+    ]
+
 ];
