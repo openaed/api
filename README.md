@@ -1,66 +1,53 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+![alt](https://openaed.eu/assets/branding/openaed_Woordmerk.svg)
+# openaed-api
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This is the back-end of OpenAED, the place where all data goes through.
+It offers some convenient features, such as;
+- Finding all AEDs in a certain radius from a point
+- Finding all AEDs within an area
 
-## About Laravel
+## Installation
+1. Clone the repository
+2. Run `npm install`
+3. Run `composer install`
+4. Run `php artisan serve` (or use a different hosting solution)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+OpenAED is built on Postgres/PostGIS.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## API
+The API offers the following endpoints:
+- `GET /api/defibrillators` - Get all AEDs
+- `GET /api/defibrillators/{id}` - Get a specific AED
+- `GET /api/defibrillators/area` - Get all AEDs within an area
+  - Supply at least 3 points in the `points` key:
+    ```JSON
+    {
+      "points": [
+        [1, 2],
+        [3, 4],
+        [1, 2]
+      ]
+    }
+    ```
+  - Make sure the first and last point are the same, to close the area.
+- `GET /api/defibrillators/nearby/{latitude}/{longitude}/{radius}` - Get all AEDs within a certain radius from a point
+  - Radius is in metres
+  - Defibrillator objects will have a key 'distance', also in metres, and will be sorted closest -> furthest
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Authentication
 
-## Learning Laravel
+The API requires an access token to be passed in the `Authorization` header.
+This token can be generated using the `api:new-access-token` command.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Commands
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+A few commands are available to manage the data:
+- `php artisan aed:import {--full}` - Import AEDs from OpenStreetMap
+  - `--full` will request all AEDs, regardless of their last updated date
+- `php artisan api:new-access-token` - Generate a new access token for the API
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project's code is licensed under the [GNU General Public License v3.0](./COPYING)
+The data supplied by OpenStreetMap is licensed under the [Open Data Commons Open Database License (ODbL)](https://opendatacommons.org/licenses/odbl/) by the OpenStreetMap Foundation (OSMF).
+Any data provided by OpenAED is licensed under the same terms.
