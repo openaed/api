@@ -14,7 +14,7 @@ Route::middleware([ValidateAccessToken::class, PostTeapots::class])->group(funct
             'version' => '2025.1.0',
             'datetime' => now(),
             'total_defibrillators' => Defibrillator::count(),
-            'last_import' => Import::orderBy('started_at', 'desc')->first()->started_at
+            'last_import' => Import::count() > 0 ? Import::orderBy('started_at', 'desc')->first()->started_at : null
         ];
 
         if ($request->attributes->has('access_token')) {
