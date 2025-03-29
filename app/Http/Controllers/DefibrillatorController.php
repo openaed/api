@@ -8,6 +8,22 @@ use Illuminate\Http\Request;
 
 class DefibrillatorController extends Controller
 {
+
+    protected function applyFilters($defibrillators)
+    {
+        $request = request();
+        $basicInfo = $request->query('basic', false);
+
+        if ($basicInfo) {
+            // Hide everything except coordinates, id, osm id and access
+            $defibrillators = $defibrillators->map(function ($defibrillator) {
+                return $defibrillator->only(['id', 'osm_id', 'latitude', 'longitude', 'access']);
+            });
+        }
+
+        return $defibrillators;
+    }
+
     /**
      * Get a specific defibrillator by ID.
      * @param Request $request
@@ -61,7 +77,7 @@ class DefibrillatorController extends Controller
 
         $defibrillators = $defibrillators->sortBy('distance')->values();
 
-        return response()->json($defibrillators);
+        return response()->json($this->applyFilters($defibrillators));
     }
 
     /**
@@ -111,12 +127,12 @@ class DefibrillatorController extends Controller
         $defibrillators->load('operator');
         $defibrillators->makeHidden(['raw_osm', 'operator_id', 'created_at', 'updated_at']);
         $defibrillators->each(function ($defibrillator) {
-            if($defibrillator->operator) {
+            if ($defibrillator->operator) {
                 $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
             }
         });
 
-        return response()->json($defibrillators);
+        return response()->json($this->applyFilters($defibrillators));
     }
 
     /**
@@ -136,12 +152,12 @@ class DefibrillatorController extends Controller
         $defibrillators->load('operator');
         $defibrillators->makeHidden(['raw_osm', 'operator_id', 'created_at', 'updated_at']);
         $defibrillators->each(function ($defibrillator) {
-            if($defibrillator->operator) {
+            if ($defibrillator->operator) {
                 $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
             }
         });
 
-        return response()->json($defibrillators);
+        return response()->json($this->applyFilters($defibrillators));
     }
 
 }
