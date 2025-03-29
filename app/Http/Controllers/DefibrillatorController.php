@@ -14,7 +14,7 @@ class DefibrillatorController extends Controller
         $request = request();
         $basicInfo = $request->query('basic', false);
 
-        if ($basicInfo) {
+        if ($basicInfo == 'true') {
             // Hide everything except coordinates, id, osm id and access
             $defibrillators = $defibrillators->map(function ($defibrillator) {
                 return $defibrillator->only(['id', 'osm_id', 'latitude', 'longitude', 'access']);
