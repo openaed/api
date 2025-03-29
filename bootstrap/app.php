@@ -15,7 +15,6 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->append(PostTeapots::class);
-        $middleware->append(ValidateAccessToken::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

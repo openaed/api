@@ -14,14 +14,17 @@ Route::middleware([ValidateAccessToken::class, PostTeapots::class])->group(funct
             'version' => '2025.1.0',
             'datetime' => now(),
             'total_defibrillators' => Defibrillator::count(),
-            'last_import' => Import::orderBy('started_at', 'desc')->first()->started_at,
-            'token' => [
+            'last_import' => Import::orderBy('started_at', 'desc')->first()->started_at
+        ];
+
+        if ($request->attributes->has('access_token')) {
+            $info['token'] = [
                 'expires_at' => $request->attributes->get('access_token')->expires_at,
                 'assigned_to' => $request->attributes->get('access_token')->assigned_to,
                 'scope' => $request->attributes->get('access_token')->scope,
                 'last_used_at' => $request->attributes->get('access_token')->last_used_at
-            ]
-        ];
+            ];
+        }
 
         return response()->json($info);
     });
