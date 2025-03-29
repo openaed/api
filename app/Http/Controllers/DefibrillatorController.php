@@ -14,11 +14,26 @@ class DefibrillatorController extends Controller
         $request = request();
         $basicInfo = $request->query('basic', false);
 
+        $orderBy = strtolower($request->query('order_by'));
+        $orderDirection = strtolower($request->query('order_direction', 'asc'));
+
+        if ($orderBy && $orderBy != 'distance' && !in_array($orderBy, (new Defibrillator())->getFillable())) { // Allow 'distance', which is not a column
+            return response()->json(['message' => 'Invalid order by column'], 400);
+        }
+
+        if ($orderDirection !== 'asc' && $orderDirection !== 'desc') {
+            return response()->json(['message' => 'Invalid order direction'], 400);
+        }
+
         if ($basicInfo == 'true') {
             // Hide everything except coordinates, id, osm id and access
             $defibrillators = $defibrillators->map(function ($defibrillator) {
-                return $defibrillator->only(['id', 'osm_id', 'latitude', 'longitude', 'access']);
+                return $defibrillator->only(['id', 'osm_id', 'latitude', 'longitude', 'access', 'distance']);
             });
+        }
+
+        if ($orderBy && $orderDirection) {
+            $defibrillators = $defibrillators->sortBy($orderBy, SORT_REGULAR, $orderDirection === 'desc');
         }
 
         return $defibrillators;
