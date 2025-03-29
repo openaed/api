@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\ImportErrored;
+use App\Mail\ImportSuccess;
 use App\Models\Defibrillator;
-use App\Models\Operator;
 use App\Models\Import;
+use App\Models\Operator;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
-class ImportController extends Controller {
+class ImportController extends Controller
+{
     /**
      * Import defibrillators from OpenStreetMap
      *
@@ -30,7 +34,7 @@ class ImportController extends Controller {
 
         $lastSyncDateTime = Defibrillator::max('last_synced_at');
         $queryMinDate = null;
-        if($lastSyncDateTime && !$doFullImport) {
+        if ($lastSyncDateTime && !$doFullImport) {
             $lastSyncDateTime = Carbon::parse($lastSyncDateTime);
             $year = $lastSyncDateTime->year;
             $month = $lastSyncDateTime->format('m');
@@ -40,13 +44,13 @@ class ImportController extends Controller {
         }
 
         try {
-            if($overrideRegion) {
+            if ($overrideRegion) {
                 $region = $overrideRegion;
             } else {
                 $region = config('app.import.region');
             }
 
-            if(strpos($region, ';') !== false) {
+            if (strpos($region, ';') !== false) {
                 $region = explode(';', $region);
                 $region = implode(',', $region);
             }
@@ -67,8 +71,8 @@ class ImportController extends Controller {
 
             $import->update(['status' => 'updating']);
 
-            foreach($defibrillators as $defibrillator) {
-                if($defibrillator['type'] !== 'node') {
+            foreach ($defibrillators as $defibrillator) {
+                if ($defibrillator['type'] !== 'node') {
                     continue;
                 }
 
@@ -82,9 +86,15 @@ class ImportController extends Controller {
             }
 
             $import->update(['status' => 'finished', 'finished_at' => now()]);
+            if (!empty(config('mail.monitoring_recipient'))) {
+                Mail::to(config('mail.monitoring_recipient'))->send(new ImportSuccess($import));
+            }
 
         } catch (\Exception $e) {
             $import->update(['status' => 'errored']);
+            if (!empty(config('mail.monitoring_recipient'))) {
+                Mail::to(config('mail.monitoring_recipient'))->send(new ImportErrored($import, $e->getMessage()));
+            }
             throw $e;
         }
 
@@ -93,41 +103,42 @@ class ImportController extends Controller {
 
     private static function handleDefibrillator(array $node, array $tags): void
     {
-        if(array_key_exists('indoor', $tags)) {
+        if (array_key_exists('indoor', $tags)) {
             $indoor = $tags['indoor'] == 'yes' ? true : ($tags['indoor'] == 'no' ? false : null);
         }
 
-        if(array_key_exists('locked', $tags)) {
+        if (array_key_exists('locked', $tags)) {
             $locked = $tags['locked'] == 'yes' ? true : ($tags['locked'] == 'no' ? false : null);
         }
 
-        if(array_key_exists('access', $tags) && $tags['access'] == 'unknown') {
+        if (array_key_exists('access', $tags) && $tags['access'] == 'unknown') {
             $tags['access'] = null;
         }
 
         $defibrillator = Defibrillator::updateOrCreate(
             ['osm_id' => $node['osm_id']],
             [
-            'id' => Str::uuid(),
-            'osm_id' => $node['osm_id'],
-            'latitude' => $node['latitude'],
-            'longitude' => $node['longitude'],
+                'id' => Str::uuid(),
+                'osm_id' => $node['osm_id'],
+                'latitude' => $node['latitude'],
+                'longitude' => $node['longitude'],
 
-            'raw_osm' => $tags,
-            'access' => $tags['access'] ?? null,
-            'indoor' => $indoor ?? null,
-            'locked' => $locked ?? null,
-            'location' => $tags['defibrillator:location'] ?? null,
-            'manufacturer' => $tags['manufacturer'] ?? null,
-            'model' => $tags['model'] ?? null,
-            'opening_hours' => $tags['opening_hours'] ?? null,
-            'image' => $tags['image'] ?? null,
-            'last_synced_at' => now()
-        ]);
+                'raw_osm' => $tags,
+                'access' => $tags['access'] ?? null,
+                'indoor' => $indoor ?? null,
+                'locked' => $locked ?? null,
+                'location' => $tags['defibrillator:location'] ?? null,
+                'manufacturer' => $tags['manufacturer'] ?? null,
+                'model' => $tags['model'] ?? null,
+                'opening_hours' => $tags['opening_hours'] ?? null,
+                'image' => $tags['image'] ?? null,
+                'last_synced_at' => now()
+            ]
+        );
 
-        if(array_key_exists('operator', $tags) && !$defibrillator->operator_id) {
+        if (array_key_exists('operator', $tags) && !$defibrillator->operator_id) {
             $operator = Operator::where('name', $tags['operator'])->first();
-            if(!$operator) {
+            if (!$operator) {
                 $operator = Operator::create([
                     'id' => Str::uuid(),
                     'name' => $tags['operator'],

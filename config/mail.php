@@ -113,4 +113,6 @@ return [
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
+    'monitoring_recipient' => env('MONITORING_EMAIL')
+
 ];
