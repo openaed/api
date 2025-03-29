@@ -7,7 +7,8 @@
 
     <p>
         <b>Import ID:</b> {{ $import->id }}<br />
-        <b>Time:</b> {{ $import->finished_at }}<br />
+        <b>Time started:</b> {{ $import->started_at }}<br />
+        <b>Time finished:</b> {{ $import->finished_at }}<br />
         <b>Full import:</b> {{ $import->is_full_import ? 'yes' : 'no' }}<br />
         <b>Defibrillators:</b> {{ $import->defibrillators }}<br />
         <b>Instance:</b> {{ config('app.url') }}
