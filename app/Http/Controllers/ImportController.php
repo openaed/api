@@ -138,6 +138,20 @@ class ImportController extends Controller
 
         if (array_key_exists('operator', $tags) && !$defibrillator->operator_id) {
             $operator = Operator::where('name', $tags['operator'])->first();
+
+            // Manual corrections
+            if ($tags['email'] && !$tags['operator:email']) {
+                $tags['operator:email'] = $tags['email'];
+            }
+
+            if ($tags['phone'] && !$tags['operator:phone']) {
+                $tags['operator:phone'] = $tags['phone'];
+            }
+
+            if ($tags['website'] && !$tags['operator:website']) {
+                $tags['operator:website'] = $tags['website'];
+            }
+
             if (!$operator) {
                 $operator = Operator::create([
                     'id' => Str::uuid(),
@@ -146,6 +160,11 @@ class ImportController extends Controller
                     'email' => $tags['operator:email'] ?? null,
                     'phone' => $tags['operator:phone'] ?? null,
                 ]);
+            } else {
+                $operator->website = $operator->website ?? $tags['operator:website'] ?? null;
+                $operator->email = $operator->email ?? $tags['operator:email'] ?? null;
+                $operator->phone = $operator->phone ?? $tags['operator:phone'] ?? null;
+                $operator->save();
             }
 
             $defibrillator->operator()->associate($operator);
