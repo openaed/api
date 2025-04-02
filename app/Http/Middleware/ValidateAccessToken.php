@@ -18,7 +18,11 @@ class ValidateAccessToken
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (app()->isLocal() || $request->ip() == '127.0.0.1') {
+        $origin = $request->headers->get('origin');
+        $origin = preg_replace('/^https?:\/\/|:\d+$/', '', $origin);
+
+        $trustedOrigins = ['erin.openaed.org'];
+        if (app()->isLocal() || $request->ip() == '127.0.0.1' || in_array($origin, $trustedOrigins)) {
             return $next($request);
         }
 
