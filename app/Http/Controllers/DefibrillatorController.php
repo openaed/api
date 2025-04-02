@@ -59,7 +59,9 @@ class DefibrillatorController extends Controller
 
         $defibrillator->load('operator');
         $defibrillator->makeHidden(['raw_osm', 'operator_id', 'created_at', 'updated_at']);
-        $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
+        if($defibrillator->operator) {
+            $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
+        }
 
         return response()->json($defibrillator);
     }
