@@ -63,6 +63,10 @@ class DefibrillatorController extends Controller
             $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
         }
 
+        if($defibrillator->address) {
+            $defibrillator->address = json_decode($defibrillator->address);
+        }
+
         return response()->json($defibrillator);
     }
 
@@ -92,6 +96,9 @@ class DefibrillatorController extends Controller
                 $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
             }
             $defibrillator->distance = $defibrillator->distanceFromPoint($latitude, $longitude);
+            if($defibrillator->address) {
+                $defibrillator->address = json_decode($defibrillator->address);
+            }
         });
 
         $defibrillators = $defibrillators->sortBy('distance')->values();
@@ -149,6 +156,9 @@ class DefibrillatorController extends Controller
             if ($defibrillator->operator) {
                 $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
             }
+            if($defibrillator->address) {
+                $defibrillator->address = json_decode($defibrillator->address);
+            }
         });
 
         return response()->json($this->applyFilters($defibrillators));
@@ -173,6 +183,9 @@ class DefibrillatorController extends Controller
         $defibrillators->each(function ($defibrillator) {
             if ($defibrillator->operator) {
                 $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
+            }
+            if($defibrillator->address) {
+                $defibrillator->address = json_decode($defibrillator->address);
             }
         });
 
