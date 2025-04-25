@@ -26,6 +26,7 @@ class Defibrillator extends Model
         'opening_hours',
         'image',
         'last_synced_at',
+        'address',
     ];
 
     protected $casts = [
@@ -33,6 +34,7 @@ class Defibrillator extends Model
         'indoor' => 'boolean',
         'locked' => 'boolean',
         'last_synced_at' => 'datetime',
+        'address' => 'json',
     ];
 
     public function operator()

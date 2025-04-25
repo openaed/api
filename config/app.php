@@ -125,6 +125,10 @@ return [
 
     'import' => [
         'region' => env('APP_IMPORT_REGION', '3600047796'), // Fallback to the Netherlands
+    ],
+
+    'nominatim' => [
+        'url' => env('NOMINATIM_URL', 'https://nominatim.openstreetmap.org'),
     ]
 
 ];
