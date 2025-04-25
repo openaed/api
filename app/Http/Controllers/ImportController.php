@@ -142,15 +142,15 @@ class ImportController extends Controller
             $operator = Operator::where('name', $tags['operator'])->first();
 
             // Manual corrections
-            if ($tags['email'] && !$tags['operator:email']) {
+            if (array_key_exists('email', $tags) && !array_key_exists('operator:email', $tags)) {
                 $tags['operator:email'] = $tags['email'];
             }
 
-            if ($tags['phone'] && !$tags['operator:phone']) {
+            if (array_key_exists('phone', $tags) && !array_key_exists('operator:phone', $tags)) {
                 $tags['operator:phone'] = $tags['phone'];
             }
 
-            if ($tags['website'] && !$tags['operator:website']) {
+            if (array_key_exists('website', $tags) && !array_key_exists('operator:website', $tags)) {
                 $tags['operator:website'] = $tags['website'];
             }
 

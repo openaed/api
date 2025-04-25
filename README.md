@@ -1,4 +1,4 @@
-![alt](https://openaed.eu/assets/branding/openaed_Woordmerk.svg)
+![alt](https://openaed.org/openaed.svg)
 
 # openaed-api
 
