@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Middleware\PostTeapots;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Middleware\ValidateAccessToken;
@@ -8,7 +7,7 @@ use App\Http\Controllers\DefibrillatorController;
 use App\Models\Defibrillator;
 use App\Models\Import;
 
-Route::middleware([ValidateAccessToken::class, PostTeapots::class])->group(function () {
+Route::middleware([ValidateAccessToken::class])->group(function () {
     Route::get('/info', function (Request $request) {
         $info = [
             'version' => '2025.1.0',
@@ -30,7 +29,7 @@ Route::middleware([ValidateAccessToken::class, PostTeapots::class])->group(funct
     });
 
     Route::get('/defibrillators/nearby/{latitude}/{longitude}/{radius}', [DefibrillatorController::class, 'getNearby']);
-    Route::get('/defibrillators/area', [DefibrillatorController::class, 'getInArea']);
+    Route::post('/defibrillators/area', [DefibrillatorController::class, 'getInArea']);
     Route::get('/defibrillators/{id}', [DefibrillatorController::class, 'getOne']);
     Route::get('/defibrillators', [DefibrillatorController::class, 'getAll']);
 });
