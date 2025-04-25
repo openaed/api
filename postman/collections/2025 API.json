@@ -1,0 +1,501 @@
+{
+	"info": {
+		"_postman_id": "a3610b1c-cab0-4bac-8420-452ef2106538",
+		"name": "2025 API",
+		"description": "This is the new April 2025 API for OpenAED.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_uid": "44394094-a3610b1c-cab0-4bac-8420-452ef2106538"
+	},
+	"item": [
+		{
+			"name": "Get API info",
+			"id": "75327983-bdfb-4848-ba28-1172b4194cf8",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/info",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"info"
+					]
+				},
+				"description": "Get some general info about the API and the authenticated user"
+			},
+			"response": [
+				{
+					"id": "965d9dfb-6c12-4905-a9c5-0abdfb411daf",
+					"name": "Get API info",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/info",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"info"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.24.0 (Ubuntu)",
+							"uuid": "54c86c12-3308-4c0c-b73d-7b75516b1a36"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"uuid": "065a7810-6cf1-4529-873f-b5f6c6d1ffcb"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"uuid": "d26ba42b-3f11-4888-99b2-9a945253f636"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"uuid": "04943aa8-1caa-4a26-857f-8da59ee558d9"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private",
+							"uuid": "cc652574-824f-4b86-9272-5589c8bf2266"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 25 Apr 2025 20:22:36 GMT",
+							"uuid": "15d06072-0d08-4c7b-aa8d-43e241a253cd"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"uuid": "551d2cfd-f652-4c76-a8ed-1f29b8db01d5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"version\": \"2025.1.0\",\n    \"datetime\": \"2025-04-25T20:22:36.254935Z\",\n    \"total_defibrillators\": 3075,\n    \"last_import\": \"2025-04-25T15:00:03.000000Z\",\n    \"token\": {\n        \"expires_at\": null,\n        \"assigned_to\": \"Jasper\",\n        \"scope\": [\n            \"*\"\n        ],\n        \"last_used_at\": \"2025-04-25T20:22:36.000000Z\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get defibrillator",
+			"id": "6ba037f6-93b3-45bb-8376-56370d16d9fa",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/defibrillators/:uuid",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"defibrillators",
+						":uuid"
+					],
+					"variable": [
+						{
+							"key": "uuid",
+							"value": "0b4366b3-3fd4-43a7-96f4-f10180b0410d",
+							"description": "The UUID of the Defibrillator"
+						}
+					]
+				},
+				"description": "Get a specific Defibrillator by its UUID"
+			},
+			"response": [
+				{
+					"id": "ed51f3be-d7b6-44e9-9087-2a063a57f7d1",
+					"name": "Get defibrillator",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/defibrillators/:uuid",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"defibrillators",
+								":uuid"
+							],
+							"variable": [
+								{
+									"key": "uuid",
+									"value": "0b4366b3-3fd4-43a7-96f4-f10180b0410d",
+									"description": "The UUID of the Defibrillator"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.24.0 (Ubuntu)",
+							"uuid": "bc7a111d-94d4-4f1c-a5e5-e9eeb5ec76e5"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"uuid": "c02f1ea3-2bd6-49a4-8477-79ddd6fc7bd9"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"uuid": "b9d9c850-03ef-4151-9e40-1d0c0c23127b"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"uuid": "e3e78ad6-4a61-4224-96fc-4db3d0dbf799"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private",
+							"uuid": "70e8d794-effc-4148-9a17-f70d0d3567ae"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 25 Apr 2025 20:23:31 GMT",
+							"uuid": "c41981e8-3a27-4702-b92a-d935dfbad59d"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"uuid": "e83687bb-a27f-47d8-a348-dfb118ea67d5"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"0b4366b3-3fd4-43a7-96f4-f10180b0410d\",\n    \"osm_id\": 10776183984,\n    \"latitude\": \"51.8260393000\",\n    \"longitude\": \"5.7971147000\",\n    \"access\": null,\n    \"indoor\": true,\n    \"locked\": null,\n    \"location\": \"binnen bij GX Software\",\n    \"manufacturer\": null,\n    \"model\": null,\n    \"opening_hours\": null,\n    \"image\": null,\n    \"last_synced_at\": \"2025-04-02T06:03:08.000000Z\",\n    \"address\": {\n        \"full_address\": \"GX Software, 111, Wijchenseweg, de Voorstenkamp, De Kamp, Lindenholt, Nijmegen, Gelderland, Nederland, 6538 SW, Nederland\",\n        \"address\": {\n            \"office\": \"GX Software\",\n            \"house_number\": \"111\",\n            \"road\": \"Wijchenseweg\",\n            \"neighbourhood\": \"de Voorstenkamp\",\n            \"quarter\": \"De Kamp\",\n            \"suburb\": \"Lindenholt\",\n            \"city_district\": \"Nijmegen\",\n            \"city\": \"Nijmegen\",\n            \"state\": \"Gelderland\",\n            \"ISO3166-2-lvl4\": \"NL-GE\",\n            \"country\": \"Nederland\",\n            \"postcode\": \"6538 SW\",\n            \"country_code\": \"nl\"\n        }\n    },\n    \"operator\": {\n        \"id\": \"9a4b1773-d4b2-4142-b009-d17d7759cc8d\",\n        \"name\": \"Stichting AED Dukenburg\",\n        \"email\": null,\n        \"website\": \"https://aeddukenburg.nl\",\n        \"phone\": \"+31 6 30894688\"\n    }\n}"
+				}
+			]
+		},
+		{
+			"name": "Get defibrillators in radius",
+			"id": "45a09aa1-06aa-4b05-919b-ea577d8b9198",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{baseUrl}}/defibrillators/nearby/:latitude/:longitude/:radius",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"defibrillators",
+						"nearby",
+						":latitude",
+						":longitude",
+						":radius"
+					],
+					"variable": [
+						{
+							"key": "latitude",
+							"value": "51.84516646738868",
+							"description": "Latitude of the middle point"
+						},
+						{
+							"key": "longitude",
+							"value": "5.866462965153708",
+							"description": "Longitude of the middle point"
+						},
+						{
+							"key": "radius",
+							"value": "100",
+							"description": "Radius in metres"
+						}
+					]
+				},
+				"description": "Get defibrillators in a radius around a point."
+			},
+			"response": [
+				{
+					"id": "93599eb7-e7d1-4596-bbdc-252f398a631f",
+					"name": "Get defibrillators in radius",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/defibrillators/nearby/:latitude/:longitude/:radius",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"defibrillators",
+								"nearby",
+								":latitude",
+								":longitude",
+								":radius"
+							],
+							"variable": [
+								{
+									"key": "latitude",
+									"value": "51.84516646738868",
+									"description": "Latitude of the middle point"
+								},
+								{
+									"key": "longitude",
+									"value": "5.866462965153708",
+									"description": "Longitude of the middle point"
+								},
+								{
+									"key": "radius",
+									"value": "100",
+									"description": "Radius in metres"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.24.0 (Ubuntu)",
+							"uuid": "4e162875-b389-4576-a7c7-031fd3db7c08"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"uuid": "081a890f-b30e-4a69-98d4-a8089929e77c"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"uuid": "d04d3244-e987-4f52-89c7-214b1aef2a48"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"uuid": "dc7be121-6062-45fa-ad8f-cfb9544919ad"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private",
+							"uuid": "2073a7e4-d70c-4645-b7b0-c1de6fc2550f"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 25 Apr 2025 20:24:09 GMT",
+							"uuid": "a52102c6-d92e-47f3-8f53-c889a5479d84"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"uuid": "79a47737-2a82-4f6e-8ddd-a004666f7127"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"b380afa3-55cc-4e6e-ba99-b9d3895545a6\",\n        \"osm_id\": 6640032350,\n        \"latitude\": \"51.8453705000\",\n        \"longitude\": \"5.8666328000\",\n        \"access\": \"yes\",\n        \"indoor\": false,\n        \"locked\": true,\n        \"location\": \"in een doos aan de muur, links naast de hoofdingang van de bibliotheek\",\n        \"manufacturer\": \"Defibtech\",\n        \"model\": \"Lifeline\",\n        \"opening_hours\": \"24/7\",\n        \"image\": \"https://commons.wikimedia.org/wiki/File:AED_at_Regionaal_Archief_Nijmegen.jpg\",\n        \"last_synced_at\": \"2025-04-02T06:02:54.000000Z\",\n        \"address\": {\n            \"full_address\": \"Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6511 PN, Nederland\",\n            \"address\": {\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6511 PN\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"distance\": 25.511395888393576,\n        \"operator\": {\n            \"id\": \"9a4b1773-d4b2-4142-b009-d17d7759cc8d\",\n            \"name\": \"Stichting AED Dukenburg\",\n            \"email\": null,\n            \"website\": \"https://aeddukenburg.nl\",\n            \"phone\": \"+31 6 30894688\"\n        }\n    },\n    {\n        \"id\": \"e989fece-915e-4003-9a0a-48204bd76c76\",\n        \"osm_id\": 10804565773,\n        \"latitude\": \"51.8444976000\",\n        \"longitude\": \"5.8669358000\",\n        \"access\": \"yes\",\n        \"indoor\": false,\n        \"locked\": true,\n        \"location\": \"Naast ingang Omgevingsdienst\",\n        \"manufacturer\": null,\n        \"model\": null,\n        \"opening_hours\": \"24/7\",\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:09.000000Z\",\n        \"address\": {\n            \"full_address\": \"76, Mariënburg, Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6511 PS, Nederland\",\n            \"address\": {\n                \"house_number\": \"76\",\n                \"road\": \"Mariënburg\",\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6511 PS\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"distance\": 81.15815132450592,\n        \"operator\": {\n            \"id\": \"9a4b1773-d4b2-4142-b009-d17d7759cc8d\",\n            \"name\": \"Stichting AED Dukenburg\",\n            \"email\": null,\n            \"website\": \"https://aeddukenburg.nl\",\n            \"phone\": \"+31 6 30894688\"\n        }\n    }\n]"
+				}
+			]
+		},
+		{
+			"name": "Get defibrillators in area",
+			"id": "24e7371f-5a6c-493f-9e20-adedb8f2ddc1",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"points\": [\r\n        [51.85092730381475, 5.854945402450066], // Landhoofd, Snelbinder\r\n        [51.849210606262204, 5.873870145442891], // Wandelbrug Ooypoort\r\n        [51.840709822140674, 5.89211120740212], // Ubbergseweg x Beekmansdalseweg\r\n        [51.838223167776675, 5.849842955944664], // Graafseweg x Willemsweg\r\n        [51.85092730381475, 5.854945402450066] // Landhoofd, Snelbinder\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/defibrillators/area",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"defibrillators",
+						"area"
+					]
+				},
+				"description": "Get defibrillators within an area defined by at least three points.  \nThe last point always needs to be equal to the first point, to close the area.\n\nSelf-intersecting ways are not supported."
+			},
+			"response": [
+				{
+					"id": "ee5fe124-dd76-42d6-8773-e4836e806b6c",
+					"name": "Get defibrillators in area",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"points\": [\r\n        [51.85092730381475, 5.854945402450066], // Landhoofd, Snelbinder\r\n        [51.849210606262204, 5.873870145442891], // Wandelbrug Ooypoort\r\n        [51.840709822140674, 5.89211120740212], // Ubbergseweg x Beekmansdalseweg\r\n        [51.838223167776675, 5.849842955944664], // Graafseweg x Willemsweg\r\n        [51.85092730381475, 5.854945402450066] // Landhoofd, Snelbinder\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/defibrillators/area",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"defibrillators",
+								"area"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Server",
+							"value": "nginx/1.24.0 (Ubuntu)",
+							"uuid": "054d1e1b-c381-4e64-976c-372f58d0a744"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json",
+							"uuid": "afa8d27e-8fec-409b-8327-7124cfb1d7ce"
+						},
+						{
+							"key": "Transfer-Encoding",
+							"value": "chunked",
+							"uuid": "059c0d5e-c565-4103-91fd-c5729cbfef1c"
+						},
+						{
+							"key": "Connection",
+							"value": "keep-alive",
+							"uuid": "76290075-1898-4ef2-a02c-26da9c0c91dd"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private",
+							"uuid": "f2094aee-4789-4305-840d-8eca351ff8a8"
+						},
+						{
+							"key": "Date",
+							"value": "Fri, 25 Apr 2025 20:24:31 GMT",
+							"uuid": "e7662115-b492-490e-bc14-e7ae18d0936b"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "*",
+							"uuid": "3639ccd5-5368-4215-97e0-31547a60a769"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"6fb539c7-4945-4686-9e29-3f126b652dc1\",\n        \"osm_id\": 10896553108,\n        \"latitude\": \"51.8442294000\",\n        \"longitude\": \"5.8541665000\",\n        \"access\": \"permissive\",\n        \"indoor\": true,\n        \"locked\": null,\n        \"location\": \"Links aan muur na ingang Doornroosje\",\n        \"manufacturer\": null,\n        \"model\": null,\n        \"opening_hours\": null,\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:10.000000Z\",\n        \"address\": {\n            \"full_address\": \"Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6512 AB, Nederland\",\n            \"address\": {\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6512 AB\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": null\n    },\n    {\n        \"id\": \"8f1b6ccf-b8d3-4411-89cc-a89b02e28589\",\n        \"osm_id\": 10826775144,\n        \"latitude\": \"51.8401362000\",\n        \"longitude\": \"5.8545260000\",\n        \"access\": \"yes\",\n        \"indoor\": false,\n        \"locked\": null,\n        \"location\": \"Aan paal rechts naast voordeur\",\n        \"manufacturer\": null,\n        \"model\": null,\n        \"opening_hours\": \"24/7\",\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:09.000000Z\",\n        \"address\": {\n            \"full_address\": \"84, Graafseweg, Bottendaal, Nijmegen-Oost, Nijmegen, Gelderland, Nederland, 6512 CG, Nederland\",\n            \"address\": {\n                \"house_number\": \"84\",\n                \"road\": \"Graafseweg\",\n                \"quarter\": \"Bottendaal\",\n                \"suburb\": \"Nijmegen-Oost\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6512 CG\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": {\n            \"id\": \"d833c790-7412-4986-b57e-8326631707d0\",\n            \"name\": \"EHBO Vereniging Nijmegen\",\n            \"email\": null,\n            \"website\": \"https://www.ehbonijmegen.nl/\",\n            \"phone\": null\n        }\n    },\n    {\n        \"id\": \"3fb4d1bb-4c6a-4d26-bf98-f75afd28e8ee\",\n        \"osm_id\": 11121231168,\n        \"latitude\": \"51.8438035000\",\n        \"longitude\": \"5.8530365000\",\n        \"access\": \"permissive\",\n        \"indoor\": true,\n        \"locked\": true,\n        \"location\": \"Perron 1, tegen de muur naast geel bord. Aangegeven met bord aan het plafond.\",\n        \"manufacturer\": null,\n        \"model\": null,\n        \"opening_hours\": \"24/7\",\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:11.000000Z\",\n        \"address\": {\n            \"full_address\": \"Tunnelweg, Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6512 AA, Nederland\",\n            \"address\": {\n                \"road\": \"Tunnelweg\",\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6512 AA\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": {\n            \"id\": \"1af47ce1-01cb-4d3b-ad62-cb98cc9c3823\",\n            \"name\": \"ProRail\",\n            \"email\": null,\n            \"website\": null,\n            \"phone\": null\n        }\n    },\n    {\n        \"id\": \"e989fece-915e-4003-9a0a-48204bd76c76\",\n        \"osm_id\": 10804565773,\n        \"latitude\": \"51.8444976000\",\n        \"longitude\": \"5.8669358000\",\n        \"access\": \"yes\",\n        \"indoor\": false,\n        \"locked\": true,\n        \"location\": \"Naast ingang Omgevingsdienst\",\n        \"manufacturer\": null,\n        \"model\": null,\n        \"opening_hours\": \"24/7\",\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:09.000000Z\",\n        \"address\": {\n            \"full_address\": \"76, Mariënburg, Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6511 PS, Nederland\",\n            \"address\": {\n                \"house_number\": \"76\",\n                \"road\": \"Mariënburg\",\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6511 PS\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": {\n            \"id\": \"9a4b1773-d4b2-4142-b009-d17d7759cc8d\",\n            \"name\": \"Stichting AED Dukenburg\",\n            \"email\": null,\n            \"website\": \"https://aeddukenburg.nl\",\n            \"phone\": \"+31 6 30894688\"\n        }\n    },\n    {\n        \"id\": \"71c3ed3f-8d89-4278-913c-bcbffeddca5c\",\n        \"osm_id\": 10897529320,\n        \"latitude\": \"51.8456043000\",\n        \"longitude\": \"5.8627765000\",\n        \"access\": \"permissive\",\n        \"indoor\": true,\n        \"locked\": null,\n        \"location\": \"Onderaan trap fietsenstalling plein 44\",\n        \"manufacturer\": null,\n        \"model\": null,\n        \"opening_hours\": \"Mo-Sa 00:00-05:00,08:00-24:00; Su 00:00-05:00,10:00-24:00\",\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:10.000000Z\",\n        \"address\": {\n            \"full_address\": \"5, Plein 1944, Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6511 JB, Nederland\",\n            \"address\": {\n                \"house_number\": \"5\",\n                \"road\": \"Plein 1944\",\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6511 JB\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": null\n    },\n    {\n        \"id\": \"02c50d52-f7d3-4a75-8b26-1c1bba40051c\",\n        \"osm_id\": 11795270018,\n        \"latitude\": \"51.8472293000\",\n        \"longitude\": \"5.8644238000\",\n        \"access\": \"permissive\",\n        \"indoor\": true,\n        \"locked\": null,\n        \"location\": \"Binnen bij Decathlon, tegen de muur achter de kassa’s\",\n        \"manufacturer\": null,\n        \"model\": null,\n        \"opening_hours\": \"Mo-Sa 10:00-18:00; Th 10:00-21:00; Su 12:00-17:00\",\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:15.000000Z\",\n        \"address\": {\n            \"full_address\": \"Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6511 KA, Nederland\",\n            \"address\": {\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6511 KA\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": null\n    },\n    {\n        \"id\": \"b380afa3-55cc-4e6e-ba99-b9d3895545a6\",\n        \"osm_id\": 6640032350,\n        \"latitude\": \"51.8453705000\",\n        \"longitude\": \"5.8666328000\",\n        \"access\": \"yes\",\n        \"indoor\": false,\n        \"locked\": true,\n        \"location\": \"in een doos aan de muur, links naast de hoofdingang van de bibliotheek\",\n        \"manufacturer\": \"Defibtech\",\n        \"model\": \"Lifeline\",\n        \"opening_hours\": \"24/7\",\n        \"image\": \"https://commons.wikimedia.org/wiki/File:AED_at_Regionaal_Archief_Nijmegen.jpg\",\n        \"last_synced_at\": \"2025-04-02T06:02:54.000000Z\",\n        \"address\": {\n            \"full_address\": \"Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6511 PN, Nederland\",\n            \"address\": {\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6511 PN\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": {\n            \"id\": \"9a4b1773-d4b2-4142-b009-d17d7759cc8d\",\n            \"name\": \"Stichting AED Dukenburg\",\n            \"email\": null,\n            \"website\": \"https://aeddukenburg.nl\",\n            \"phone\": \"+31 6 30894688\"\n        }\n    },\n    {\n        \"id\": \"d8dc3b04-6232-4e8f-977b-daecdcf95df5\",\n        \"osm_id\": 7851282985,\n        \"latitude\": \"51.8488023000\",\n        \"longitude\": \"5.8683990000\",\n        \"access\": \"yes\",\n        \"indoor\": false,\n        \"locked\": null,\n        \"location\": \"Onderaan muur Holland Casino aan de Waalkade\",\n        \"manufacturer\": null,\n        \"model\": null,\n        \"opening_hours\": \"24/7\",\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:02:57.000000Z\",\n        \"address\": {\n            \"full_address\": \"68, Waalkade, Benedenstad, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6511 XP, Nederland\",\n            \"address\": {\n                \"house_number\": \"68\",\n                \"road\": \"Waalkade\",\n                \"quarter\": \"Benedenstad\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6511 XP\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": null\n    },\n    {\n        \"id\": \"e9d52248-2342-48b2-89c3-35e00ff5df1c\",\n        \"osm_id\": 10816684405,\n        \"latitude\": \"51.8467381000\",\n        \"longitude\": \"5.8658582000\",\n        \"access\": \"yes\",\n        \"indoor\": false,\n        \"locked\": true,\n        \"location\": \"Naast hoofdingang Stadhuis\",\n        \"manufacturer\": null,\n        \"model\": null,\n        \"opening_hours\": \"24/7\",\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:09.000000Z\",\n        \"address\": {\n            \"full_address\": \"Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6511 RE, Nederland\",\n            \"address\": {\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6511 RE\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": {\n            \"id\": \"0cd75395-6cc7-4e1d-91d2-25c543e5fdc3\",\n            \"name\": \"HartslagNijmegen\",\n            \"email\": null,\n            \"website\": null,\n            \"phone\": null\n        }\n    },\n    {\n        \"id\": \"09ddeab1-44eb-47b5-ad1f-2f516ee88af1\",\n        \"osm_id\": 10892673363,\n        \"latitude\": \"51.8442435000\",\n        \"longitude\": \"5.8661309000\",\n        \"access\": \"permissive\",\n        \"indoor\": true,\n        \"locked\": null,\n        \"location\": \"Rechts na ingang Vue, binnen aan de muur\",\n        \"manufacturer\": null,\n        \"model\": null,\n        \"opening_hours\": \"Mo 17:00-21:30; Tu 13:30-21:30; We 12:30-21:30; Th 17:30-21:30; Fr 14:30-22:30; Sa 12:30-22:30; Su 10:00-21:30\",\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:10.000000Z\",\n        \"address\": {\n            \"full_address\": \"16, Tweede Walstraat, Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6511 LV, Nederland\",\n            \"address\": {\n                \"house_number\": \"16\",\n                \"road\": \"Tweede Walstraat\",\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6511 LV\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": null\n    },\n    {\n        \"id\": \"ba7cc686-fdee-4a15-83e7-c9d10f88912a\",\n        \"osm_id\": 10997019840,\n        \"latitude\": \"51.8430982000\",\n        \"longitude\": \"5.8533210000\",\n        \"access\": \"yes\",\n        \"indoor\": false,\n        \"locked\": true,\n        \"location\": \"Buiten station Nijmegen\",\n        \"manufacturer\": null,\n        \"model\": null,\n        \"opening_hours\": \"24/7\",\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:11.000000Z\",\n        \"address\": {\n            \"full_address\": \"Backwerk, 6A, Stationsplein, Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6512 AB, Nederland\",\n            \"address\": {\n                \"shop\": \"Backwerk\",\n                \"house_number\": \"6A\",\n                \"road\": \"Stationsplein\",\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6512 AB\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": {\n            \"id\": \"1af47ce1-01cb-4d3b-ad62-cb98cc9c3823\",\n            \"name\": \"ProRail\",\n            \"email\": null,\n            \"website\": null,\n            \"phone\": null\n        }\n    },\n    {\n        \"id\": \"dc40143e-dd0c-4486-8da5-bdc0bfa48e3d\",\n        \"osm_id\": 11096869301,\n        \"latitude\": \"51.8465963000\",\n        \"longitude\": \"5.8657726000\",\n        \"access\": \"permissive\",\n        \"indoor\": true,\n        \"locked\": false,\n        \"location\": \"Achter receptie, aan de rechterhand als je naar binnen loopt\",\n        \"manufacturer\": \"Defibtech\",\n        \"model\": \"Lifeline\",\n        \"opening_hours\": null,\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:11.000000Z\",\n        \"address\": {\n            \"full_address\": \"Stadhuis Nijmegen, 6, Korte Nieuwstraat, Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6511 PP, Nederland\",\n            \"address\": {\n                \"amenity\": \"Stadhuis Nijmegen\",\n                \"house_number\": \"6\",\n                \"road\": \"Korte Nieuwstraat\",\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6511 PP\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": {\n            \"id\": \"15bc80f0-13a2-4af4-9ece-660366721f52\",\n            \"name\": \"Gemeente Nijmegen\",\n            \"email\": null,\n            \"website\": null,\n            \"phone\": null\n        }\n    },\n    {\n        \"id\": \"e728b73c-f7b9-47c9-a76d-1006e0a72a65\",\n        \"osm_id\": 10891631145,\n        \"latitude\": \"51.8477935000\",\n        \"longitude\": \"5.8632400000\",\n        \"access\": \"yes\",\n        \"indoor\": false,\n        \"locked\": true,\n        \"location\": \"Rechts om de hoek na de poort vanaf Grote Markt\",\n        \"manufacturer\": \"Defibtech\",\n        \"model\": \"Lifeline\",\n        \"opening_hours\": \"24/7\",\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:10.000000Z\",\n        \"address\": {\n            \"full_address\": \"Benedenstad, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6511 JZ, Nederland\",\n            \"address\": {\n                \"quarter\": \"Benedenstad\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6511 JZ\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": {\n            \"id\": \"9a4b1773-d4b2-4142-b009-d17d7759cc8d\",\n            \"name\": \"Stichting AED Dukenburg\",\n            \"email\": null,\n            \"website\": \"https://aeddukenburg.nl\",\n            \"phone\": \"+31 6 30894688\"\n        }\n    },\n    {\n        \"id\": \"b09b68e0-ece6-4e31-904c-5f7973f87bb2\",\n        \"osm_id\": 10994268771,\n        \"latitude\": \"51.8472906000\",\n        \"longitude\": \"5.8683388000\",\n        \"access\": \"yes\",\n        \"indoor\": false,\n        \"locked\": true,\n        \"location\": \"Naast ingang WO2 Informatiecentrum\",\n        \"manufacturer\": \"Defibtech\",\n        \"model\": \"Lifeline\",\n        \"opening_hours\": \"24/7\",\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:11.000000Z\",\n        \"address\": {\n            \"full_address\": \"29, Ridderstraat, Benedenstad, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6511 TM, Nederland\",\n            \"address\": {\n                \"house_number\": \"29\",\n                \"road\": \"Ridderstraat\",\n                \"quarter\": \"Benedenstad\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6511 TM\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": {\n            \"id\": \"9a4b1773-d4b2-4142-b009-d17d7759cc8d\",\n            \"name\": \"Stichting AED Dukenburg\",\n            \"email\": null,\n            \"website\": \"https://aeddukenburg.nl\",\n            \"phone\": \"+31 6 30894688\"\n        }\n    },\n    {\n        \"id\": \"96324c07-fd4d-4690-8bb9-0f3721bd029c\",\n        \"osm_id\": 11071269306,\n        \"latitude\": \"51.8427140000\",\n        \"longitude\": \"5.8568528000\",\n        \"access\": \"yes\",\n        \"indoor\": false,\n        \"locked\": true,\n        \"location\": \"Aan voorgevel aan rechterkant\",\n        \"manufacturer\": null,\n        \"model\": null,\n        \"opening_hours\": \"24/7\",\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:11.000000Z\",\n        \"address\": {\n            \"full_address\": \"6, van Schaeck Mathonsingel, Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6512 AP, Nederland\",\n            \"address\": {\n                \"house_number\": \"6\",\n                \"road\": \"van Schaeck Mathonsingel\",\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6512 AP\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": {\n            \"id\": \"9a4b1773-d4b2-4142-b009-d17d7759cc8d\",\n            \"name\": \"Stichting AED Dukenburg\",\n            \"email\": null,\n            \"website\": \"https://aeddukenburg.nl\",\n            \"phone\": \"+31 6 30894688\"\n        }\n    },\n    {\n        \"id\": \"ecb177e3-b9c6-4911-adf3-9f3e8f87da71\",\n        \"osm_id\": 11357820149,\n        \"latitude\": \"51.8445609000\",\n        \"longitude\": \"5.8646876000\",\n        \"access\": \"permissive\",\n        \"indoor\": true,\n        \"locked\": null,\n        \"location\": \"Binnen bij kantoor CZ\",\n        \"manufacturer\": null,\n        \"model\": null,\n        \"opening_hours\": \"Mo-Fr 09:30-17:00\",\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:14.000000Z\",\n        \"address\": {\n            \"full_address\": \"7, Passage Molenpoort, Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6511 HS, Nederland\",\n            \"address\": {\n                \"house_number\": \"7\",\n                \"road\": \"Passage Molenpoort\",\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6511 HS\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": null\n    },\n    {\n        \"id\": \"a9b28e65-cbb7-4dc9-9335-8b106d45e3b6\",\n        \"osm_id\": 12004398515,\n        \"latitude\": \"51.8395645000\",\n        \"longitude\": \"5.8557360000\",\n        \"access\": \"yes\",\n        \"indoor\": null,\n        \"locked\": null,\n        \"location\": null,\n        \"manufacturer\": null,\n        \"model\": null,\n        \"opening_hours\": \"24/7\",\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:16.000000Z\",\n        \"address\": {\n            \"full_address\": \"Wijkcentrum Burghardt, 114, Burghardt van den Berghstraat, Bottendaal, Nijmegen-Oost, Nijmegen, Gelderland, Nederland, 6512 DR, Nederland\",\n            \"address\": {\n                \"amenity\": \"Wijkcentrum Burghardt\",\n                \"house_number\": \"114\",\n                \"road\": \"Burghardt van den Berghstraat\",\n                \"quarter\": \"Bottendaal\",\n                \"suburb\": \"Nijmegen-Oost\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6512 DR\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": null\n    },\n    {\n        \"id\": \"de23d097-9d51-426b-b00d-2dc36a0e388c\",\n        \"osm_id\": 12057727536,\n        \"latitude\": \"51.8423381000\",\n        \"longitude\": \"5.8606701000\",\n        \"access\": \"yes\",\n        \"indoor\": false,\n        \"locked\": null,\n        \"location\": \"Tegen gevel Rabobank aan de kant van de Oranjesingel\",\n        \"manufacturer\": null,\n        \"model\": null,\n        \"opening_hours\": null,\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:17.000000Z\",\n        \"address\": {\n            \"full_address\": \"2, Keizer Karelplein, Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6511 NC, Nederland\",\n            \"address\": {\n                \"house_number\": \"2\",\n                \"road\": \"Keizer Karelplein\",\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6511 NC\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": null\n    },\n    {\n        \"id\": \"9e7b45ca-e2bc-4bec-951d-102d5d07fad1\",\n        \"osm_id\": 12396112774,\n        \"latitude\": \"51.8435264000\",\n        \"longitude\": \"5.8525148000\",\n        \"access\": \"permissive\",\n        \"indoor\": null,\n        \"locked\": true,\n        \"location\": \"Tussen perron 3 en 4, bovenaan de roltrap\",\n        \"manufacturer\": \"Mindray\",\n        \"model\": null,\n        \"opening_hours\": null,\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:19.000000Z\",\n        \"address\": {\n            \"full_address\": \"Tunnelweg, Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6512 AA, Nederland\",\n            \"address\": {\n                \"road\": \"Tunnelweg\",\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6512 AA\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": {\n            \"id\": \"1af47ce1-01cb-4d3b-ad62-cb98cc9c3823\",\n            \"name\": \"ProRail\",\n            \"email\": null,\n            \"website\": null,\n            \"phone\": null\n        }\n    },\n    {\n        \"id\": \"cb1b8786-27f6-47b2-a9ec-e9c69602300b\",\n        \"osm_id\": 12466941103,\n        \"latitude\": \"51.8455436000\",\n        \"longitude\": \"5.8701694000\",\n        \"access\": null,\n        \"indoor\": true,\n        \"locked\": null,\n        \"location\": \"Behind gate next to elevator, accessible via residents\",\n        \"manufacturer\": null,\n        \"model\": null,\n        \"opening_hours\": null,\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:19.000000Z\",\n        \"address\": {\n            \"full_address\": \"82, Scholenhof, Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6511 SG, Nederland\",\n            \"address\": {\n                \"house_number\": \"82\",\n                \"road\": \"Scholenhof\",\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6511 SG\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": null\n    },\n    {\n        \"id\": \"5fb8c8e1-da7e-479e-8eee-e3349221ed3e\",\n        \"osm_id\": 12518508578,\n        \"latitude\": \"51.8486088000\",\n        \"longitude\": \"5.8625375000\",\n        \"access\": \"yes\",\n        \"indoor\": false,\n        \"locked\": true,\n        \"location\": \"Bij de trap naast de ingang van de sportzaal, aan de buitenmuur\",\n        \"manufacturer\": null,\n        \"model\": null,\n        \"opening_hours\": null,\n        \"image\": null,\n        \"last_synced_at\": \"2025-04-02T06:03:20.000000Z\",\n        \"address\": {\n            \"full_address\": \"Kitty de Wijzeplaats, Benedenstad, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6511 WK, Nederland\",\n            \"address\": {\n                \"road\": \"Kitty de Wijzeplaats\",\n                \"quarter\": \"Benedenstad\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6511 WK\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": null\n    },\n    {\n        \"id\": \"79da9370-b58e-45c1-91df-bfccf92aa8ee\",\n        \"osm_id\": 10836709193,\n        \"latitude\": \"51.8442564000\",\n        \"longitude\": \"5.8641612000\",\n        \"access\": \"yes\",\n        \"indoor\": true,\n        \"locked\": null,\n        \"location\": \"Naast trappenhuis oostkant\",\n        \"manufacturer\": \"Defibtech\",\n        \"model\": \"Lifeline\",\n        \"opening_hours\": \"Mo-Sa 08:30-21:00; Su 12:00-21:00\",\n        \"image\": \"https://images.openaed.org/i/6f6aaf49-71cd-477b-a33c-f1c31ea29900.jpg\",\n        \"last_synced_at\": \"2025-04-02T06:03:09.000000Z\",\n        \"address\": {\n            \"full_address\": \"Molenpoort, 7, Passage Molenpoort, Stadscentrum, Nijmegen-Centrum, Nijmegen, Gelderland, Nederland, 6511 HS, Nederland\",\n            \"address\": {\n                \"shop\": \"Molenpoort\",\n                \"house_number\": \"7\",\n                \"road\": \"Passage Molenpoort\",\n                \"quarter\": \"Stadscentrum\",\n                \"suburb\": \"Nijmegen-Centrum\",\n                \"city_district\": \"Nijmegen\",\n                \"city\": \"Nijmegen\",\n                \"state\": \"Gelderland\",\n                \"ISO3166-2-lvl4\": \"NL-GE\",\n                \"country\": \"Nederland\",\n                \"postcode\": \"6511 HS\",\n                \"country_code\": \"nl\"\n            }\n        },\n        \"operator\": null\n    }\n]"
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "c26b68a4-1fd5-4ec1-b5ce-6603d06e631f",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "7e42481a-b9d5-48a1-91f9-f2c0281a124b",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"id": "192df5d6-0ffb-4e19-8903-071459ecf77b",
+			"key": "token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"id": "5b224f86-bb4c-42a8-b624-1cb1957b85f7",
+			"key": "baseUrl",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
