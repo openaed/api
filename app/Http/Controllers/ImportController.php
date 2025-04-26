@@ -32,7 +32,11 @@ class ImportController extends Controller
             'is_full_import' => $doFullImport
         ]);
 
-        $lastSyncDateTime = Defibrillator::max('last_synced_at')->where('status', 'finished');
+        // Get the last finished_at date from the Imports table
+        $lastSyncDateTime = Import::where('status', 'finished')
+            ->orderBy('finished_at', 'desc')
+            ->first()
+                ?->finished_at;
         $queryMinDate = null;
         if ($lastSyncDateTime && !$doFullImport) {
             $lastSyncDateTime = Carbon::parse($lastSyncDateTime);
@@ -177,12 +181,12 @@ class ImportController extends Controller
     public static function updateNominatim(Defibrillator $defibrillator, $newLat = null, $newLon = null): array|null
     {
         $hasLocationChanged = false;
-        if(!$newLat || $newLon) {
+        if (!$newLat || $newLon) {
             $newLat = $defibrillator->latitude;
             $newLon = $defibrillator->longitude;
         }
 
-        if($newLat && $newLon) {
+        if ($newLat && $newLon) {
             $hasLocationChanged = ($defibrillator->latitude != $newLat || $defibrillator->longitude != $newLon);
         }
 
@@ -197,7 +201,7 @@ class ImportController extends Controller
         if ($response->successful()) {
             $data = $response->json();
             $address = $data['address'] ?? null;
-            if($address) {
+            if ($address) {
                 $defibrillator->address = json_encode(
                     [
                         'full_address' => $data['display_name'] ?? null,
