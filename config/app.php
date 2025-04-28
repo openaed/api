@@ -129,6 +129,11 @@ return [
 
     'nominatim' => [
         'url' => env('NOMINATIM_URL', 'https://nominatim.openstreetmap.org'),
+    ],
+
+    'heartbeat' => [
+        'url' => env('HEARTBEAT_URL', null),
+        'interval' => env('HEARTBEAT_INTERVAL', 60)
     ]
 
 ];

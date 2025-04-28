@@ -18,3 +18,11 @@ Schedule::command('api:send-month-report')
     ->timezone('Europe/Amsterdam')
     ->name('send-month-report')
     ->description('Send monthly report');
+
+// config(app.heartbeat.interval) is a cron expression
+// Run the artisan command app:heartbeat
+Schedule::command('app:heartbeat')
+    ->cron(config('app.heartbeat.interval'))
+    ->timezone('Europe/Amsterdam')
+    ->name('app-heartbeat')
+    ->description('Send heartbeat signal to the monitoring service');
