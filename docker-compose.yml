@@ -1,0 +1,21 @@
+services:
+    openaed-api:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: openaed-api
+        restart: unless-stopped
+        environment:
+            APP_ENV: local
+            APP_URL: http://localhost
+            DB_CONNECTION: pgsql
+            DB_HOST: your-db-host.example.com # <-- change this
+            DB_PORT: 5432
+            DB_DATABASE: openaed # <-- change this
+            DB_USERNAME: your-db-user # <-- change this
+            DB_PASSWORD: your-db-password # <-- change this
+        volumes:
+            - .:/var/www/html
+        ports:
+            - "8000:8000"
+        command: php artisan serve --host=0.0.0.0 --port=8000
