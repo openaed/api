@@ -32,4 +32,10 @@ Route::middleware([ValidateAccessToken::class])->group(function () {
     Route::post('/defibrillators/area', [DefibrillatorController::class, 'getInArea']);
     Route::get('/defibrillators/{id}', [DefibrillatorController::class, 'getOne']);
     Route::get('/defibrillators', [DefibrillatorController::class, 'getAll']);
+
+    Route::get('/stats', [\App\Http\Controllers\StatsController::class, 'getStats']);
+
+    Route::get('/operators', [\App\Http\Controllers\OperatorController::class, 'getOperators']);
+    Route::get('/operators/{id}', [\App\Http\Controllers\OperatorController::class, 'getOperatorById']);
+    Route::get('/operators/{id}/defibrillators', [\App\Http\Controllers\OperatorController::class, 'getDefibrillatorsByOperatorId']);
 });
