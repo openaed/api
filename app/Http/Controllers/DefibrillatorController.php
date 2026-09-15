@@ -59,11 +59,11 @@ class DefibrillatorController extends Controller
 
         $defibrillator->load('operator');
         $defibrillator->makeHidden(['raw_osm', 'operator_id', 'created_at', 'updated_at']);
-        if($defibrillator->operator) {
+        if ($defibrillator->operator) {
             $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
         }
 
-        if($defibrillator->address) {
+        if ($defibrillator->address) {
             $defibrillator->address = json_decode($defibrillator->address);
         }
 
@@ -92,11 +92,11 @@ class DefibrillatorController extends Controller
         $defibrillators->load('operator');
         $defibrillators->makeHidden(['raw_osm', 'operator_id', 'created_at', 'updated_at']);
         $defibrillators->each(function ($defibrillator) use ($latitude, $longitude) {
-            if($defibrillator->operator) {
+            if ($defibrillator->operator) {
                 $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
             }
             $defibrillator->distance = $defibrillator->distanceFromPoint($latitude, $longitude);
-            if($defibrillator->address) {
+            if ($defibrillator->address) {
                 $defibrillator->address = json_decode($defibrillator->address);
             }
         });
@@ -156,7 +156,7 @@ class DefibrillatorController extends Controller
             if ($defibrillator->operator) {
                 $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
             }
-            if($defibrillator->address) {
+            if ($defibrillator->address) {
                 $defibrillator->address = json_decode($defibrillator->address);
             }
         });
@@ -172,6 +172,9 @@ class DefibrillatorController extends Controller
     public function getAll(Request $request): JsonResponse
     {
         $accessToken = $request->attributes->get('access_token');
+        if (!$accessToken) {
+            return response()->json(['message' => 'Access token not found'], 401);
+        }
         if (!$accessToken->hasScope('export')) {
             return response()->json(['message' => 'Insufficient scope access'], 403);
         }
@@ -184,7 +187,7 @@ class DefibrillatorController extends Controller
             if ($defibrillator->operator) {
                 $defibrillator->operator->makeHidden(['created_at', 'updated_at']);
             }
-            if($defibrillator->address) {
+            if ($defibrillator->address) {
                 $defibrillator->address = json_decode($defibrillator->address);
             }
         });
