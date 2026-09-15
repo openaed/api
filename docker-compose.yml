@@ -13,6 +13,9 @@ services:
         ports:
             - "8000:8000"
         command: php artisan serve --host=0.0.0.0 --port=8000
+        depends_on:
+            db:
+                condition: service_healthy
         extra_hosts:
             - "nominatim.openaed.org:host-gateway"
 
@@ -28,7 +31,10 @@ services:
             - .:/var/www/html
             - /var/www/html/vendor
         depends_on:
-            - app
+            app:
+                condition: service_started
+            db:
+                condition: service_healthy
         entrypoint:
             [
                 "sh",
@@ -37,3 +43,29 @@ services:
             ]
         extra_hosts:
             - "nominatim.openaed.org:host-gateway"
+
+    db:
+        image: postgis/postgis:16-3.5
+        container_name: openaed-db
+        restart: unless-stopped
+        env_file:
+            - .env
+        environment:
+            POSTGRES_DB: ${DB_DATABASE}
+            POSTGRES_USER: ${DB_USERNAME}
+            POSTGRES_PASSWORD: ${DB_PASSWORD}
+        volumes:
+            - pgdata:/var/lib/postgresql/data
+        healthcheck:
+            test:
+                [
+                    "CMD-SHELL",
+                    "pg_isready -U ${DB_USERNAME} -d ${DB_DATABASE}",
+                ]
+            interval: 5s
+            timeout: 5s
+            retries: 10
+            start_period: 10s
+
+volumes:
+    pgdata:
