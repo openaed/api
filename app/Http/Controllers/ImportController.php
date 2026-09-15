@@ -140,7 +140,7 @@ class ImportController extends Controller
             ]
         );
 
-        static::updateNominatim($defibrillator, $node['latitude'], $node['longitude']);
+        // static::updateNominatim($defibrillator, $node['latitude'], $node['longitude']);
 
         if (array_key_exists('operator', $tags) && !$defibrillator->operator_id) {
             $operator = Operator::where('name', $tags['operator'])->first();
