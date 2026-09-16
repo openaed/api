@@ -20,9 +20,10 @@ class ImportController extends Controller
      *
      * @param bool doFullImport Whether to do a full import - import ALL Defibrillators, regardless of update time
      *
+     * @param ?string $overrideRegion The region to import defibrillators for, or null to use the default region
      * @return Import The import object
      */
-    public static function importDefibrillators(bool $doFullImport = false, string $overrideRegion = null): Import
+    public static function importDefibrillators(bool $doFullImport = false, ?string $overrideRegion = null): Import
     {
 
         $import = Import::create([
