@@ -21,7 +21,7 @@ class ValidateAccessToken
         $origin = $request->headers->get('origin');
         $origin = preg_replace('/^https?:\/\/|:\d+$/', '', $origin);
 
-        $trustedOrigins = ['erin.openaed.org'];
+        $trustedOrigins = ['map.openaed.org'];
         if (app()->isLocal() || $request->ip() == '127.0.0.1' || in_array($origin, $trustedOrigins)) {
             $accessToken = new AccessToken([
                 'token' => 'local-dev-token',
