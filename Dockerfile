@@ -1,3 +1,14 @@
+FROM node:24-alpine AS frontend
+
+WORKDIR /app
+
+COPY package*.json ./
+RUN npm ci
+
+COPY . .
+RUN npm run build
+
+
 FROM php:8.4-cli
 
 # Install system dependencies
@@ -19,9 +30,3 @@ RUN composer install --no-interaction --prefer-dist
 
 # Set permissions
 RUN chown -R www-data:www-data storage bootstrap/cache
-
-# Generate APP_KEY
-RUN php artisan key:generate
-
-# Run Vite
-RUN npm install && npm run build
