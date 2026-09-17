@@ -134,6 +134,14 @@ return [
     'heartbeat' => [
         'url' => env('HEARTBEAT_URL', null),
         'interval' => env('HEARTBEAT_INTERVAL', 60)
-    ]
+    ],
+
+    'admin' => [
+        'password' => env('ADMIN_PASSWORD', null),
+    ],
+
+    'photon' => [
+        'url' => env('PHOTON_URL', 'https://photon.komoot.io'),
+    ],
 
 ];

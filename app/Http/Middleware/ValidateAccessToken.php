@@ -23,6 +23,15 @@ class ValidateAccessToken
 
         $trustedOrigins = ['erin.openaed.org'];
         if (app()->isLocal() || $request->ip() == '127.0.0.1' || in_array($origin, $trustedOrigins)) {
+            $accessToken = new AccessToken([
+                'token' => 'local-dev-token',
+                'expires_at' => null,
+                'assigned_to' => 'Local Development',
+                'scope' => ['*'],
+                'assignee_email' => 'local@localhost',
+                'is_active' => true
+            ]);
+            $request->attributes->set('access_token', $accessToken);
             return $next($request);
         }
 

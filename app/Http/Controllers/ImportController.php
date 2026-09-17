@@ -65,7 +65,7 @@ class ImportController extends Controller
             $import->update(['status' => 'requesting']);
 
             $response = Http::withHeaders([
-                'User-Agent' => 'OpenAED/1.0'
+                'User-Agent' => 'OpenAED ' . app()->environment() . ' API/1.0'
             ])->get($overpassUrl);
 
             $import->update(['status' => 'processing']);
