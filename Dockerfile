@@ -1,4 +1,4 @@
-FROM php:8.3-cli
+FROM php:8.5-cli
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
@@ -22,3 +22,6 @@ RUN chown -R www-data:www-data storage bootstrap/cache
 
 # Generate APP_KEY
 RUN php artisan key:generate
+
+# Run Vite
+RUN npm install && npm run build
