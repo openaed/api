@@ -11,6 +11,7 @@ use App\Models\Operator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 class ImportController extends Controller
@@ -31,7 +32,8 @@ class ImportController extends Controller
             'id' => $overrideUuid ?? Str::uuid(),
             'status' => 'started',
             'defibrillators' => 0,
-            'is_full_import' => $doFullImport
+            'is_full_import' => $doFullImport,
+            'started_at' => now()
         ]);
 
         // Get the last finished_at date from the Imports table
@@ -91,7 +93,7 @@ class ImportController extends Controller
                 static::handleDefibrillator($node, $defibrillator['tags']);
             }
 
-            $import->update(['status' => 'finished', 'finished_at' => now('UTC')]);
+            $import->update(['status' => 'finished', 'finished_at' => now()]);
             if (!empty(config('mail.monitoring_recipient'))) {
                 Mail::to(config('mail.monitoring_recipient'))->send(new ImportSuccess($import));
             }
