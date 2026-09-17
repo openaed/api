@@ -23,7 +23,6 @@ Route::prefix('admin')->group(function () {
         Route::get('/imports', [AdminPanelController::class, 'imports'])->name('admin.imports');
 
         // API
-        Route::get('api/defibrillators', [AdminPanelController::class, 'defibrillatorsPaginated'])->name('admin.defibrillators.paginated');
         Route::post('api/imports/trigger', [AdminPanelController::class, 'triggerImport'])->name('admin.imports.trigger');
     });
 });

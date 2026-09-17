@@ -83,23 +83,10 @@ class AdminPanelController extends Controller
         ]);
     }
 
-    /**
-     * Get a paginated list of defibrillators for the admin panel.
-     * @param Request $request
-     * @return JsonResponse
-     */
-    function defibrillatorsPaginated(Request $request): JsonResponse
-    {
-        $perPage = $request->query('per_page', 10);
-        $currentPage = $request->query('page', 1);
-        $defibrillators = Defibrillator::orderBy('created_at', 'desc')->paginate($perPage, ['*'], 'page', $currentPage);
-
-        return response()->json($defibrillators);
-    }
-
     function defibrillators()
     {
-        return view('admin.defibrillators');
+        $defibrillators = Defibrillator::orderBy('created_at', 'desc')->paginate(10, ['*'], 'p', request()->query('page', 1));
+        return view('admin.defibrillators', ['defibrillators' => $defibrillators]);
     }
 
     function imports()

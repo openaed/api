@@ -112,7 +112,7 @@
                 @endforeach
             </tbody>
         </table>
-        {{ $imports->links() }} 
+        <div class="px-5">{{ $imports->links() }}</div>
     </div>
 @endsection
 
