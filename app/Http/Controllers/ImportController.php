@@ -21,13 +21,14 @@ class ImportController extends Controller
      * @param bool doFullImport Whether to do a full import - import ALL Defibrillators, regardless of update time
      *
      * @param ?string $overrideRegion The region to import defibrillators for, or null to use the default region
+     * @param string $overrideUuid The UUID to use for the import, or a new one will be generated
      * @return Import The import object
      */
-    public static function importDefibrillators(bool $doFullImport = false, ?string $overrideRegion = null): Import
+    public static function importDefibrillators(bool $doFullImport = false, ?string $overrideRegion = null, ?string $overrideUuid = null): Import
     {
 
         $import = Import::create([
-            'id' => Str::uuid(),
+            'id' => $overrideUuid ?? Str::uuid(),
             'status' => 'started',
             'defibrillators' => 0,
             'is_full_import' => $doFullImport
@@ -90,7 +91,7 @@ class ImportController extends Controller
                 static::handleDefibrillator($node, $defibrillator['tags']);
             }
 
-            $import->update(['status' => 'finished', 'finished_at' => now()]);
+            $import->update(['status' => 'finished', 'finished_at' => now('UTC')]);
             if (!empty(config('mail.monitoring_recipient'))) {
                 Mail::to(config('mail.monitoring_recipient'))->send(new ImportSuccess($import));
             }

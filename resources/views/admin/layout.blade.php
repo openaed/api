@@ -44,6 +44,13 @@
                     Defibrillators
                 </a>
 
+                <a href="{{ route('admin.imports') }}"
+                    class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-300 transition hover:bg-gray-800 hover:text-white @if(Route::is('admin.imports')) bg-gray-800 text-white @else text-gray-300 hover:bg-gray-800 hover:text-white @endif">
+                    <x-heroicon-s-arrow-down-tray width="20" height="20" />
+
+                    Imports
+                </a>
+
                 <a href="#"
                     class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-300 transition hover:bg-gray-800 hover:text-white">
                     <x-heroicon-o-key width="20" height="20" />

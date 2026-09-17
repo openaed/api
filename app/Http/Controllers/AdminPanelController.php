@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\ImportDefibrillators;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -99,5 +100,29 @@ class AdminPanelController extends Controller
     function defibrillators()
     {
         return view('admin.defibrillators');
+    }
+
+    function imports()
+    {
+        $imports = Import::orderBy('created_at', 'desc')->paginate(10, ['*'], 'p', request()->query('page', 1));
+        return view('admin.imports', ['imports' => $imports]);
+    }
+
+    function triggerImport(Request $request)
+    {
+        $doFullImport = $request->get('full', false) === 'true';
+
+        $uuid = Str::uuid()->toString();
+        try {
+            ImportDefibrillators::dispatch($doFullImport, null, $uuid);
+
+            return response()->json([
+                'import_id' => $uuid
+            ]);
+        } catch (\Exception $e) {
+            return response()->json([
+                'error' => 'Failed to trigger import: ' . $e->getMessage()
+            ], 500);
+        }
     }
 }

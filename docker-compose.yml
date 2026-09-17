@@ -32,6 +32,22 @@ services:
                 "while :; do php artisan schedule:run >> /dev/null 2>&1; sleep 60; done",
             ]
 
+    queue:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: openaed-queue
+        restart: unless-stopped
+        env_file:
+            - .env
+        volumes:
+            - .:/var/www/html
+            - /var/www/html/vendor
+        depends_on:
+            db:
+                condition: service_healthy
+        command: php artisan queue:work --sleep=3 --tries=1 --timeout=3600
+
     db:
         image: postgis/postgis:16-3.5
         container_name: openaed-db
