@@ -28,5 +28,8 @@ COPY . .
 # Install PHP dependencies
 RUN composer install --no-interaction --prefer-dist
 
+# Copy frontend build files
+COPY --from=frontend /app/public/build ./public/build
+
 # Set permissions
 RUN chown -R www-data:www-data storage bootstrap/cache
