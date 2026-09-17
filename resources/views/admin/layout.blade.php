@@ -51,8 +51,15 @@
                     Imports
                 </a>
 
-                <a href="#"
-                    class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-300 transition hover:bg-gray-800 hover:text-white">
+                <a href="{{ route('admin.operators') }}"
+                    class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-300 transition hover:bg-gray-800 hover:text-white @if(Route::is('admin.operators')) bg-gray-800 text-white @else text-gray-300 hover:bg-gray-800 hover:text-white @endif">
+                    <x-heroicon-o-wrench width="20" height="20" />
+
+                    Operators
+                </a>
+
+                <a href="{{ route('admin.access-tokens') }}"
+                    class="flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-gray-300 transition hover:bg-gray-800 hover:text-white @if(Route::is('admin.access-tokens')) bg-gray-800 text-white @else text-gray-300 hover:bg-gray-800 hover:text-white @endif">
                     <x-heroicon-o-key width="20" height="20" />
 
                     Access tokens

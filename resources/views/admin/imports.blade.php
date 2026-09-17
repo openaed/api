@@ -20,7 +20,7 @@
 
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm p-4">
 
-        <table>
+        <table class="mb-5 w-full">
             <thead>
                 <tr>
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -45,12 +45,19 @@
             </thead>
 
             <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+                @if($imports->isEmpty())
+                    <tr>
+                        <td colspan="6" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            No imports yet.
+                        </td>
+                    </tr>
+                @endif
                 @foreach($imports as $import)
                     <tr>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500" title="{{ $import->id }}">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm" title="{{ $import->id }}">
                             {{ substr($import->id, 0, 8) . "..." }}
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
                             @switch($import->status)
                                 @case('requesting')
                                     <span class="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-800">
@@ -86,20 +93,20 @@
                                     </span>
                             @endswitch
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
                             {{ \Carbon\Carbon::parse($import->started_at)->format('Y-m-d H:i') }} ({{ \Carbon\Carbon::parse($import->started_at)->diffForHumans() }})
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
                             @if($import->finished_at)
-                                {{ \Carbon\Carbon::parse($import->finished_at)->format('Y-m-d H:i') }} ({{ \Carbon\Carbon::parse($import->finished_at)->diff(\Carbon\Carbon::parse($import->started_at)) }})
+                                {{ \Carbon\Carbon::parse($import->finished_at)->format('Y-m-d H:i') }} (took {{ \Carbon\Carbon::parse($import->finished_at)->diff(\Carbon\Carbon::parse($import->started_at)) }})
                             @else
                                 -
                             @endif
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
                             {{ $import->defibrillators }}
                         </td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
                             @if($import->is_full_import)
                                 <x-heroicon-o-arrow-down-on-square-stack class="inline" width="16" height="16" />
                                 Full import
@@ -165,3 +172,4 @@
         });
     });
 </script>
+@endpush

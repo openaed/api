@@ -85,13 +85,19 @@ class AdminPanelController extends Controller
 
     function defibrillators()
     {
-        $defibrillators = Defibrillator::orderBy('created_at', 'desc')->paginate(10, ['*'], 'p', request()->query('page', 1));
+        $defibrillators = Defibrillator::orderBy('created_at', 'desc')->paginate(10, ['*'], 'p', request()->query('p', 1));
         return view('admin.defibrillators', ['defibrillators' => $defibrillators]);
+    }
+
+    function operators()
+    {
+        $operators = Operator::withCount('defibrillators')->orderBy('defibrillators_count', 'desc')->paginate(10, ['*'], 'p', request()->query('p', 1));
+        return view('admin.operators', ['operators' => $operators]);
     }
 
     function imports()
     {
-        $imports = Import::orderBy('created_at', 'desc')->paginate(10, ['*'], 'p', request()->query('page', 1));
+        $imports = Import::orderBy('created_at', 'desc')->paginate(10, ['*'], 'p', request()->query('p', 1));
         return view('admin.imports', ['imports' => $imports]);
     }
 
@@ -111,5 +117,11 @@ class AdminPanelController extends Controller
                 'error' => 'Failed to trigger import: ' . $e->getMessage()
             ], 500);
         }
+    }
+
+    function accessTokens()
+    {
+        $tokens = AccessToken::orderBy('created_at', 'desc')->paginate(10, ['*'], 'p', request()->query('p', 1));
+        return view('admin.access-tokens', ['tokens' => $tokens]);
     }
 }

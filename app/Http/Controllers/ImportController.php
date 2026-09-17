@@ -150,14 +150,29 @@ class ImportController extends Controller
             $operator = Operator::where('name', $tags['operator'])->first();
 
             // Manual corrections
+            // Move key 'email' to 'operator:email'
             if (array_key_exists('email', $tags) && !array_key_exists('operator:email', $tags)) {
                 $tags['operator:email'] = $tags['email'];
             }
 
+            // Move key 'phone' to 'operator:phone'
             if (array_key_exists('phone', $tags) && !array_key_exists('operator:phone', $tags)) {
                 $tags['operator:phone'] = $tags['phone'];
             }
 
+            // Move key 'phone:NL' to 'operator:phone'
+            if (array_key_exists('phone:NL', $tags) && !array_key_exists('operator:phone', $tags)) {
+                $tags['operator:phone'] = $tags['phone:NL'];
+            }
+
+            // Move key 'phone:** to 'operator:phone'
+            foreach ($tags as $key => $value) {
+                if (preg_match('/^phone:.+$/', $key) && !array_key_exists('operator:phone', $tags)) {
+                    $tags['operator:phone'] = $value;
+                }
+            }
+
+            // Move key 'website' to 'operator:website'
             if (array_key_exists('website', $tags) && !array_key_exists('operator:website', $tags)) {
                 $tags['operator:website'] = $tags['website'];
             }

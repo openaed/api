@@ -21,6 +21,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminPanelController::class, 'dashboard'])->name('admin.dashboard');
         Route::get('/defibrillators', [AdminPanelController::class, 'defibrillators'])->name('admin.defibrillators');
         Route::get('/imports', [AdminPanelController::class, 'imports'])->name('admin.imports');
+        Route::get('/operators', [AdminPanelController::class, 'operators'])->name('admin.operators');
+        Route::get('/access-tokens', [AdminPanelController::class, 'accessTokens'])->name('admin.access-tokens');
 
         // API
         Route::post('api/imports/trigger', [AdminPanelController::class, 'triggerImport'])->name('admin.imports.trigger');
