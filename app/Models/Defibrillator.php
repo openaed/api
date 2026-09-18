@@ -20,6 +20,7 @@ class Defibrillator extends Model
         'access',
         'indoor',
         'locked',
+        'lock_type',
         'location',
         'manufacturer',
         'model',
@@ -33,6 +34,7 @@ class Defibrillator extends Model
         'raw_osm' => 'array',
         'indoor' => 'boolean',
         'locked' => 'boolean',
+        'lock_type' => 'string',
         'last_synced_at' => 'datetime',
         'address' => 'json',
     ];

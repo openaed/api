@@ -142,8 +142,14 @@ class ImportController extends Controller
             $indoor = $tags['indoor'] == 'yes' ? true : ($tags['indoor'] == 'no' ? false : null);
         }
 
+        $locked = null;
+        $lock_type = null;
         if (array_key_exists('locked', $tags)) {
-            $locked = $tags['locked'] == 'yes' ? true : ($tags['locked'] == 'no' ? false : null);
+            $locked = $tags['locked'] == 'no' ? false : ($tags['locked'] === null ? null : true);
+
+            if ($tags['locked'] !== 'yes' && $tags['locked'] == 'no') {
+                $lock_type = $tags['locked'];
+            }
         }
 
         if (array_key_exists('access', $tags) && $tags['access'] == 'unknown') {
@@ -162,6 +168,7 @@ class ImportController extends Controller
                 'access' => $tags['access'] ?? null,
                 'indoor' => $indoor ?? null,
                 'locked' => $locked ?? null,
+                'lock_type' => $lock_type ?? null,
                 'location' => $tags['defibrillator:location'] ?? null,
                 'manufacturer' => $tags['manufacturer'] ?? null,
                 'model' => $tags['model'] ?? null,

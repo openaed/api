@@ -146,7 +146,7 @@ class DefibrillatorController extends Controller
         }, $points)) . '))';
 
         $defibrillators = Defibrillator::whereRaw(
-            'ST_Within(ST_MakePoint(longitude, latitude), ST_GeomFromText(?))',
+            'ST_Within(ST_MakePoint(longitude::double precision, latitude::double precision), ST_GeomFromText(?))',
             [$polygon]
         )->get();
 
