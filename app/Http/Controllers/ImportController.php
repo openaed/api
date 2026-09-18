@@ -230,9 +230,7 @@ class ImportController extends Controller
                 $operator->save();
             }
 
-            if (!$defibrillator->operator_id) {
-                $defibrillator->operator()->associate($operator);
-            }
+            $defibrillator->operator()->associate($operator);
             $defibrillator->save();
         }
     }
