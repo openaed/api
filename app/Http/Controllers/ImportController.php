@@ -215,6 +215,11 @@ class ImportController extends Controller
                 $tags['operator:website'] = $tags['website'];
             }
 
+            // Use panoramax as image if no image present
+            if (!array_key_exists('image', $tags) && array_key_exists('panoramax', $tags)) {
+                $tags['image'] = "https://api.panoramax.xyz/api/pictures/{$tags['panoramax']}/hd.jpg";
+            }
+
             if (!$operator) {
                 $operator = Operator::create([
                     'id' => Str::uuid(),
@@ -233,47 +238,5 @@ class ImportController extends Controller
             $defibrillator->operator()->associate($operator);
             $defibrillator->save();
         }
-    }
-
-    public static function updateNominatim(Defibrillator $defibrillator, $newLat = null, $newLon = null): array|null
-    {
-        $hasLocationChanged = false;
-        if (!$newLat || $newLon) {
-            $newLat = $defibrillator->latitude;
-            $newLon = $defibrillator->longitude;
-        }
-
-        if ($newLat && $newLon) {
-            $hasLocationChanged = ($defibrillator->latitude != $newLat || $defibrillator->longitude != $newLon);
-        }
-
-        if ($defibrillator->address && $hasLocationChanged) {
-            return ['full_address' => 'test1', 'address' => null];
-        }
-
-        $nominatimUrl = config('app.nominatim.url') . '/reverse?format=json&lat=' . $newLat . '&lon=' . $newLon . '&layer=address';
-
-        $response = Http::get($nominatimUrl);
-
-        if ($response->successful()) {
-            $data = $response->json();
-            $address = $data['address'] ?? null;
-            if ($address) {
-                $defibrillator->address = json_encode(
-                    [
-                        'full_address' => $data['display_name'] ?? null,
-                        'address' => $address,
-                    ]
-                );
-                $defibrillator->save();
-
-                return [
-                    'full_address' => $data['display_name'] ?? null,
-                    'address' => $address,
-                ];
-            }
-        }
-
-        return null;
     }
 }
