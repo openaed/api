@@ -156,6 +156,11 @@ class ImportController extends Controller
             $tags['access'] = null;
         }
 
+        // Use panoramax as image if no image present
+        if (!array_key_exists('image', $tags) && array_key_exists('panoramax', $tags)) {
+            $tags['image'] = "https://api.panoramax.xyz/api/pictures/{$tags['panoramax']}/hd.jpg";
+        }
+
         $defibrillator = Defibrillator::updateOrCreate(
             ['osm_id' => $node['osm_id']],
             [
@@ -213,11 +218,6 @@ class ImportController extends Controller
             // Move key 'website' to 'operator:website'
             if (array_key_exists('website', $tags) && !array_key_exists('operator:website', $tags)) {
                 $tags['operator:website'] = $tags['website'];
-            }
-
-            // Use panoramax as image if no image present
-            if (!array_key_exists('image', $tags) && array_key_exists('panoramax', $tags)) {
-                $tags['image'] = "https://api.panoramax.xyz/api/pictures/{$tags['panoramax']}/hd.jpg";
             }
 
             if (!$operator) {
