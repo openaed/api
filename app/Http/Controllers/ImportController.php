@@ -147,7 +147,7 @@ class ImportController extends Controller
         if (array_key_exists('locked', $tags)) {
             $locked = $tags['locked'] == 'no' ? false : ($tags['locked'] === null ? null : true);
 
-            if ($tags['locked'] !== 'yes' && $tags['locked'] == 'no') {
+            if ($tags['locked'] !== 'yes' && $tags['locked'] !== 'no') {
                 $lock_type = $tags['locked'];
             }
         }
