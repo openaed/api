@@ -173,8 +173,12 @@ class ImportController extends Controller
 
         // static::updateNominatim($defibrillator, $node['latitude'], $node['longitude']);
 
-        if (array_key_exists('operator', $tags) && !$defibrillator->operator_id) {
+        if (array_key_exists('operator', $tags)) {
             $operator = Operator::where('name', $tags['operator'])->first();
+
+            if ($tags['operator'] == "NS Stations") {
+                Log::info('NS Stations operator found', $tags);
+            }
 
             // Manual corrections
             // Move key 'email' to 'operator:email'
@@ -219,7 +223,9 @@ class ImportController extends Controller
                 $operator->save();
             }
 
-            $defibrillator->operator()->associate($operator);
+            if (!$defibrillator->operator_id) {
+                $defibrillator->operator()->associate($operator);
+            }
             $defibrillator->save();
         }
     }
