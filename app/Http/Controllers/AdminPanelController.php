@@ -103,7 +103,7 @@ class AdminPanelController extends Controller
 
     function triggerImport(Request $request)
     {
-        $doFullImport = $request->get('full', false) === 'true';
+        $doFullImport = $request->boolean('full');
 
         $uuid = Str::uuid()->toString();
         try {

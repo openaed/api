@@ -6,13 +6,13 @@
 
     <div class="flex">
         <button id="btnTriggerFullImport"
-            class="mb-4 rounded-lg bg-green-700 px-2 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 cursor-pointer">
+            class="mb-4 rounded-lg disabled:bg-gray-300 disabled:text-gray-500 bg-green-700 px-2 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:bg-green-900 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:cursor-not-allowed cursor-pointer">
             <x-heroicon-o-arrow-down-on-square-stack class="inline" width="20" height="20" />
             Trigger full import
         </button>
 
         <button id="btnTriggerUpdate"
-            class="mb-4 ml-2 rounded-lg bg-green-600 px-2 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 cursor-pointer">
+            class="mb-4 ml-2 rounded-lg disabled:bg-gray-300 disabled:text-gray-500 bg-green-600 px-2 py-1.5 text-sm font-semibold text-white shadow-sm transition hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:cursor-not-allowed cursor-pointer">
             <x-heroicon-o-arrow-path class="inline" width="20" height="20" />
             Trigger update
         </button>
@@ -130,6 +130,8 @@
         const btnTriggerUpdate = document.getElementById('btnTriggerUpdate');
 
         btnTriggerFullImport.addEventListener('click', function() {
+            btnTriggerFullImport.disabled = true;
+            btnTriggerUpdate.disabled = true;
             if (confirm('Are you sure you want to trigger a full import? This may take a while.')) {
                 fetch('{{ route('admin.imports.trigger') }}', {
                     method: 'POST',
@@ -141,7 +143,9 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    location.reload();
+                    setTimeout(function() {
+                        location.reload(); // Giving the queue some time to start the job
+                    }, 2000);
                 })
                 .catch(error => {
                     console.error('Error:', error);
@@ -151,6 +155,8 @@
         });
 
         btnTriggerUpdate.addEventListener('click', function() {
+            btnTriggerFullImport.disabled = true;
+            btnTriggerUpdate.disabled = true;
             if (confirm('Are you sure you want to trigger an update?')) {
                 fetch('{{ route('admin.imports.trigger') }}', {
                     method: 'POST',
@@ -162,7 +168,9 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    location.reload();
+                    setTimeout(function() {
+                        location.reload(); // Giving the queue some time to start the job
+                    }, 2000);
                 })
                 .catch(error => {
                     console.error('Error:', error);

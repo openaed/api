@@ -63,17 +63,44 @@ class ImportController extends Controller
                 $region = implode(',', $region);
             }
 
-            $overpassUrl = "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A25%5D%3B%0Aarea%28id%3A{$region}%29-%3E.searchArea%3B%0Anode%5B%22emergency%22%3D%22defibrillator%22%5D%28area.searchArea%29{$queryMinDate}%3B%0Aout%20geom%3B%0A";
+            $overpassUrl = "https://overpass-api.de/api/interpreter?data=%5Bout%3Ajson%5D%5Btimeout%3A120%5D%3B%0Aarea%28id%3A{$region}%29-%3E.searchArea%3B%0Anode%5B%22emergency%22%3D%22defibrillator%22%5D%28area.searchArea%29{$queryMinDate}%3B%0Aout%20geom%3B%0A";
 
             $import->update(['status' => 'requesting']);
 
             $response = Http::withHeaders([
                 'User-Agent' => 'OpenAED ' . app()->environment() . ' API/1.0'
-            ])->get($overpassUrl);
+            ])
+                ->timeout(60)
+                ->retry(3, 2000)
+                ->get($overpassUrl)
+                ->throw(function ($response, $e) use ($region) {
+                    Log::error('Overpass request failed', [
+                        'status' => $response->status(),
+                        'body' => $response->body(),
+                        'region' => $region,
+                    ]);
+
+                    throw new \RuntimeException(
+                        "Overpass request failed with HTTP {$response->status()}"
+                    );
+                });
 
             $import->update(['status' => 'processing']);
 
-            $defibrillators = $response->json()['elements'];
+            $json = $response->json();
+
+            if (!isset($json['elements'])) {
+                Log::error('Invalid Overpass response', [
+                    'body' => $response->body(),
+                    'region' => $region,
+                ]);
+
+                throw new \RuntimeException(
+                    'Overpass returned an invalid response'
+                );
+            }
+
+            $defibrillators = $json['elements'];
 
             $import->defibrillators = count($defibrillators);
 
