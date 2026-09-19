@@ -17,7 +17,7 @@ class OperatorController extends Controller
             $operator->defibrillators = Defibrillator::where('operator_id', $operator->id)->count();
         });
 
-        return response()->json($operators);
+        return response()->json($operators)->header('Cache-Control', 'public, max-age=7200');
     }
 
     public function getOperatorById($id)
@@ -31,7 +31,7 @@ class OperatorController extends Controller
         $operator->makeHidden(['created_at', 'updated_at']);
         $operator->defibrillators = Defibrillator::where('operator_id', $operator->id)->count();
 
-        return response()->json($operator);
+        return response()->json($operator)->header('Cache-Control', 'public, max-age=7200');
     }
 
     public function getDefibrillatorsByOperatorId($id)
@@ -49,6 +49,6 @@ class OperatorController extends Controller
         return response()->json([
             'operator' => $operator,
             'defibrillators' => $defibrillators
-        ]);
+        ])->header('Cache-Control', 'public, max-age=7200');
     }
 }

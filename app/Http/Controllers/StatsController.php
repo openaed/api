@@ -41,6 +41,6 @@ class StatsController extends Controller
             ],
         ];
 
-        return response()->json($stats);
+        return response()->json($stats)->header('Cache-Control', 'public, max-age=7200');
     }
 }

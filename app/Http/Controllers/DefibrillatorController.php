@@ -67,7 +67,7 @@ class DefibrillatorController extends Controller
             $defibrillator->address = json_decode($defibrillator->address);
         }
 
-        return response()->json($defibrillator);
+        return response()->json($defibrillator)->header('Cache-Control', 'public, max-age=7200');
     }
 
     /**
@@ -103,7 +103,7 @@ class DefibrillatorController extends Controller
 
         $defibrillators = $defibrillators->sortBy('distance')->values();
 
-        return response()->json($this->applyFilters($defibrillators));
+        return response()->json($this->applyFilters($defibrillators))->header('Cache-Control', 'public, max-age=7200');
     }
 
     /**
@@ -192,7 +192,7 @@ class DefibrillatorController extends Controller
             }
         });
 
-        return response()->json($this->applyFilters($defibrillators));
+        return response()->json($this->applyFilters($defibrillators))->header('Cache-Control', 'public, max-age=7200');
     }
 
 }
