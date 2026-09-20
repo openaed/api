@@ -161,8 +161,8 @@ class ImportController extends Controller
             $tags['image'] = "https://api.panoramax.xyz/api/pictures/{$tags['panoramax']}/hd.jpg";
         }
 
-        if (empty($tags['defibrillator:location'])) {
-            $tags['defibrillator:location'] = $tags['defibrillator:location:en'] ?? null;
+        if (!array_key_exists('defibrillator:location', $tags)) {
+            $tags['defibrillator:location'] = $tags['defibrillator:location:en'] ?? null; // English is most common
         }
 
         $defibrillator = Defibrillator::updateOrCreate(
