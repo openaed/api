@@ -3,6 +3,26 @@
 @section('pagetitle', 'Defibrillators')
 
 @section('content')
+    <div class="rounded-xl border border-gray-200 bg-white shadow-sm px-4 py-2 mb-5">
+        <label for="search">Search by ID</label>
+        <form action="{{ route('admin.defibrillators.find') }}" method="GET" class="flex mt-1">
+            <select name="type_id" id="search_type_id"
+                class="p-2 rounded-s-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                <option value="osm">OSM ID</option>
+                <option value="uuid">UUID</option>
+            </select>
+            <input type="search" name="id" id="search_id"
+                class="p-2 rounded-e-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                placeholder="ID" required>
+            <button type="submit" id="search_button"
+                class="ml-2 px-4 py-2 bg-gray-900 text-white rounded-md hover:bg-black cursor-pointer">
+                Go
+            </button>
+        </form>
+        @session('error_defibsearch')
+            <span class="ml-4 text-red-500">{{ session('error_defibsearch') }}</span>
+        @endsession
+    </div>
     <div class="rounded-xl border border-gray-200 bg-white shadow-sm p-4">
 
         <table class="mb-5 w-full">
@@ -56,7 +76,8 @@
                             {{ $defibrillator->created_at->format('Y-m-d') }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap">
-
+                            <a href="{{ route('admin.defibrillators.details', ['id' => $defibrillator->id]) }}"
+                                class="text-blue-500 hover:text-blue-700">View</a>
                         </td>
                     </tr>
                 @endforeach

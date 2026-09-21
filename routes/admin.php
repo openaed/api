@@ -19,7 +19,12 @@ Route::prefix('admin')->group(function () {
 
     Route::middleware([AdminPassword::class])->group(function () {
         Route::get('/dashboard', [AdminPanelController::class, 'dashboard'])->name('admin.dashboard');
+
         Route::get('/defibrillators', [AdminPanelController::class, 'defibrillators'])->name('admin.defibrillators');
+        Route::get('/defibrillators/find', [AdminPanelController::class, 'findDefibrillator'])->name('admin.defibrillators.find');
+        Route::get('/defibrillators/{id}', [AdminPanelController::class, 'defibrillatorDetails'])->name('admin.defibrillators.details');
+        Route::delete('/defibrillators/{id}', [AdminPanelController::class, 'deleteDefibrillator'])->name('admin.defibrillators.delete');
+
         Route::get('/imports', [AdminPanelController::class, 'imports'])->name('admin.imports');
         Route::get('/operators', [AdminPanelController::class, 'operators'])->name('admin.operators');
         Route::get('/access-tokens', [AdminPanelController::class, 'accessTokens'])->name('admin.access-tokens');

@@ -83,18 +83,107 @@ class AdminPanelController extends Controller
         ]);
     }
 
+
+    // Defib methods
     function defibrillators()
     {
         $defibrillators = Defibrillator::orderBy('created_at', 'desc')->paginate(10, ['*'], 'p', request()->query('p', 1));
-        return view('admin.defibrillators', ['defibrillators' => $defibrillators]);
+        return view('admin.defibrillators.index', ['defibrillators' => $defibrillators]);
     }
 
+    function defibrillatorDetails($id)
+    {
+        $defibrillator = Defibrillator::find($id);
+
+        if (!$defibrillator) {
+            abort(404, 'Defibrillator not found');
+        }
+
+        $operator = $defibrillator->operator;
+        $operatorDefibCount = $operator ? $operator->defibrillators()->count() : 0;
+
+        return view('admin.defibrillators.view', ['defibrillator' => $defibrillator, 'operator' => $operator, 'operatorDefibCount' => $operatorDefibCount]);
+    }
+
+    /**
+     * Find a defibrillator by ID
+     * @param Request $request
+     */
+    function findDefibrillator(Request $request)
+    {
+        $typeId = $request->get('type_id');
+        $id = $request->get('id');
+
+        if (!$typeId || !$id) {
+            return redirect()->back()->with('error_defibsearch', 'Missing required parameters: type_id and id.');
+        }
+
+        if (!in_array($typeId, ['osm', 'uuid'])) {
+            return redirect()->back()->with('error_defibsearch', 'Invalid type_id. Must be "osm" or "uuid".');
+        }
+
+        if ($typeId === 'uuid' && !Str::isUuid($id)) {
+            return redirect()->back()->with('error_defibsearch', 'Invalid UUID format.');
+        }
+
+        if ($typeId === 'osm' && !is_numeric($id)) {
+            return redirect()->back()->with('error_defibsearch', 'Invalid OSM ID format. Must be a numeric value.');
+        }
+
+        if ($typeId === 'osm') {
+            $defibrillator = Defibrillator::where('osm_id', $id)->first();
+        } else {
+            $defibrillator = Defibrillator::find($id);
+        }
+
+        if (!$defibrillator) {
+            return redirect()->back()->with('error_defibsearch', 'Defibrillator not found.');
+        }
+
+        return redirect()->route('admin.defibrillators.details', ['id' => $defibrillator->id]);
+    }
+
+    /**
+     * Delete a defibrillator by ID
+     * @param Request $request
+     * @param string $id The UUID of the defibrillator to delete
+     */
+    function deleteDefibrillator(Request $request, $id)
+    {
+        $defibrillator = Defibrillator::find($id);
+
+        if (!$defibrillator) {
+            return 404;
+        }
+
+        $defibrillator->delete();
+
+        return redirect()->route('admin.defibrillators')->with('success', 'Defibrillator deleted successfully.');
+    }
+
+    // Operator methods
     function operators()
     {
         $operators = Operator::withCount('defibrillators')->orderBy('defibrillators_count', 'desc')->paginate(10, ['*'], 'p', request()->query('p', 1));
         return view('admin.operators', ['operators' => $operators]);
     }
 
+    function deleteOperator(Request $request, $id)
+    {
+        $operator = Operator::find($id);
+
+        if (!$operator) {
+            return 404;
+        }
+
+        Defibrillator::where('operator_id', $operator->id)->update(['operator_id' => null]);
+
+        $operator->delete();
+
+        return redirect()->route('admin.operators')->with('success', 'Operator deleted successfully.');
+    }
+
+    // Import methods
     function imports()
     {
         $imports = Import::orderBy('created_at', 'desc')->paginate(10, ['*'], 'p', request()->query('p', 1));
@@ -119,6 +208,7 @@ class AdminPanelController extends Controller
         }
     }
 
+    // Access Token methods
     function accessTokens()
     {
         $tokens = AccessToken::orderBy('created_at', 'desc')->paginate(10, ['*'], 'p', request()->query('p', 1));
