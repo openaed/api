@@ -164,8 +164,27 @@ class AdminPanelController extends Controller
     // Operator methods
     function operators()
     {
-        $operators = Operator::withCount('defibrillators')->orderBy('defibrillators_count', 'desc')->paginate(10, ['*'], 'p', request()->query('p', 1));
-        return view('admin.operators', ['operators' => $operators]);
+        $operators = Operator::withCount('defibrillators')
+            ->orderBy('defibrillators_count', 'desc')
+            ->orderBy('id', 'asc')
+            ->paginate(10, ['*'], 'p', request()->query('p', 1));
+
+        return view('admin.operators.index', [
+            'operators' => $operators
+        ]);
+    }
+
+    function operatorDetails($id)
+    {
+        $operator = Operator::find($id);
+
+        if (!$operator) {
+            abort(404, 'Operator not found');
+        }
+
+        $defibrillators = $operator->defibrillators()->orderBy('created_at', 'desc')->paginate(10, ['*'], 'p', request()->query('p', 1));
+
+        return view('admin.operators.view', ['operator' => $operator, 'defibrillators' => $defibrillators]);
     }
 
     function deleteOperator(Request $request, $id)

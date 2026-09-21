@@ -26,7 +26,11 @@ Route::prefix('admin')->group(function () {
         Route::delete('/defibrillators/{id}', [AdminPanelController::class, 'deleteDefibrillator'])->name('admin.defibrillators.delete');
 
         Route::get('/imports', [AdminPanelController::class, 'imports'])->name('admin.imports');
+
         Route::get('/operators', [AdminPanelController::class, 'operators'])->name('admin.operators');
+        Route::get('/operators/{id}', [AdminPanelController::class, 'operatorDetails'])->name('admin.operators.details');
+        Route::delete('/operators/{id}', [AdminPanelController::class, 'deleteOperator'])->name('admin.operators.delete');
+
         Route::get('/access-tokens', [AdminPanelController::class, 'accessTokens'])->name('admin.access-tokens');
 
         // API

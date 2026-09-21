@@ -23,6 +23,9 @@
                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                         Defibrillators
                     </th>
+                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Actions
+                    </th>
                 </tr>
             </thead>
 
@@ -59,13 +62,18 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm">
                             @if($operator->website)
                                 <a href="{{ $operator->website }}" class="text-blue-500 hover:underline" target="_blank"
-                                    rel="noopener noreferrer">{{ $operator->website }}</a>
+                                    rel="noopener noreferrer">{{ $operator->website }} <x-heroicon-o-arrow-top-right-on-square
+                                        width="16" height="16" class="inline" /></a>
                             @else
                                 -
                             @endif
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm">
                             {{ $operator->defibrillators->count() }}
+                        </td>
+                        <td class="px-6 py-4 whitespace-nowrap text-sm">
+                            <a href="{{ route('admin.operators.details', $operator->id) }}"
+                                class="text-blue-500 hover:underline">View</a>
                         </td>
                     </tr>
                 @endforeach

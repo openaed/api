@@ -11,7 +11,8 @@
                     <tbody>
                         <tr>
                             <td class="px-6 py-2 font-medium text-gray-800">OSM ID</td>
-                            <td>{{ $defibrillator->osm_id }}</td>
+                            <td><a href="https://www.osm.org/node/{{ $defibrillator->osm_id }}" target="_blank"
+                                    class="text-blue-500 hover:underline">{{ $defibrillator->osm_id }} <x-heroicon-o-arrow-top-right-on-square width="16" height="16" class="inline" /></a></td>
                         </tr>
                         <tr>
                             <td class="px-6 py-2 font-medium text-gray-800">UUID</td>
@@ -28,9 +29,10 @@
                     </tbody>
                 </table>
 
-                <h3 class="text-lg font-bold text-gray-900 my-4">Operator</h3>
+                <h3 class="text-lg font-bold text-gray-900 mt-4">Operator</h3>
                 @if($operator)
-                    <span class="text-lg font-medium">{{ $operator->name }}</span>
+                    <a href="{{ route('admin.operators.details', ['id' => $operator->id]) }}"
+                        class="text-lg underline md:no-underline hover:underline font-medium">{{ $operator->name }}</a>
                     @if($operator->phone)
                         <a href="tel:{{ $operator->phone }}" target="_blank"
                             class="text-blue-500 hover:text-blue-700">
@@ -45,7 +47,7 @@
                     @endif
                     @if($operator->website)
                         <a href="{{ $operator->website }}" target="_blank" class="text-blue-500 hover:text-blue-700">
-                            {{ $operator->website }}
+                            {{ $operator->website }} <x-heroicon-o-arrow-top-right-on-square width="16" height="16" class="inline" />
                         </a>
                     @endif
                     <p class="text-gray-500 mt-2">This operator has {{ $operatorDefibCount }} defibrillator(s) in the system.</p>
@@ -74,7 +76,7 @@
 {{-- Delete confirmation modal --}}
 <div
     id="delete-modal"
-    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/50 p-4"
+    class="fixed inset-0 z-2000 hidden items-center justify-center bg-black/50 p-4"
     role="dialog"
     aria-modal="true"
     aria-labelledby="delete-modal-title"
