@@ -144,4 +144,9 @@ return [
         'url' => env('PHOTON_URL', 'https://photon.komoot.io'),
     ],
 
+    'pushover' => [
+        'app_token' => env('PUSHOVER_APP_TOKEN', null),
+        'user_key' => env('PUSHOVER_USER_KEY', null),
+    ],
+
 ];

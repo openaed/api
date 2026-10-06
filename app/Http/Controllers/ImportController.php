@@ -125,10 +125,29 @@ class ImportController extends Controller
                 Mail::to(config('mail.monitoring_recipient'))->send(new ImportSuccess($import));
             }
 
+            if (!empty(config('app.pushover.app_token')) && !empty(config('app.pushover.user_key'))) {
+                $message = "Import completed successfully. Imported {$import->defibrillators} defibrillators.\nInstance: " . config('app.url') . "\nImport ID: {$import->id}";
+                Http::post('https://api.pushover.net/1/messages.json', [
+                    'token' => config('app.pushover.app_token'),
+                    'user' => config('app.pushover.user_key'),
+                    'message' => $message,
+                    'title' => 'OpenAED Import',
+                ]);
+            }
+
         } catch (\Exception $e) {
             $import->update(['status' => 'errored']);
             if (!empty(config('mail.monitoring_recipient'))) {
                 Mail::to(config('mail.monitoring_recipient'))->send(new ImportErrored($import, $e->getMessage()));
+            }
+            if (!empty(config('app.pushover.app_token')) && !empty(config('app.pushover.user_key'))) {
+                $message = "Import failed with error: {$e->getMessage()}\nInstance: " . config('app.url') . "\nImport ID: {$import->id}";
+                Http::post('https://api.pushover.net/1/messages.json', [
+                    'token' => config('app.pushover.app_token'),
+                    'user' => config('app.pushover.user_key'),
+                    'message' => $message,
+                    'title' => 'OpenAED Import',
+                ]);
             }
             throw $e;
         }
