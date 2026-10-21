@@ -9,7 +9,7 @@ COPY . .
 RUN npm run build
 
 
-FROM php:8.4-cli
+FROM php:8.4.27-cli
 
 # Install system dependencies
 RUN apt-get update && apt-get install -y \
